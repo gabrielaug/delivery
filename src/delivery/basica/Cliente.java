@@ -16,7 +16,11 @@ public class Cliente {
     private String telefone;
     private String telefone2;
     private String telefone3;
-    private Endereco endereco =  new Endereco();
+    private String logradouro;
+    private String cep;
+    private String numero;
+    private String complemento;
+    private String referencia;
 
     public String getNome() {
         return nome;
@@ -58,16 +62,44 @@ public class Cliente {
         this.telefone3 = telefone3;
     }
 
-    public Endereco getEndereco() {
-        return endereco;
+    public String getLogradouro() {
+        return logradouro;
     }
 
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
     }
-    
-    
 
-    
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
+    }
+
+    public String getReferencia() {
+        return referencia;
+    }
+
+    public void setReferencia(String referencia) {
+        this.referencia = referencia;
+    }
     
 }

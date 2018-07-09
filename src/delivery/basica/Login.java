@@ -14,6 +14,7 @@ public class Login {
     private String usuario;
     private String nome;
     private String senha;
+    private NvAcesso nvAcesso = new NvAcesso();
 
     public String getUsuario() {
         return usuario;
@@ -37,6 +38,14 @@ public class Login {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public NvAcesso getNvAcesso() {
+        return nvAcesso;
+    }
+
+    public void setNvAcesso(NvAcesso nvAcesso) {
+        this.nvAcesso = nvAcesso;
     }
     
 }
