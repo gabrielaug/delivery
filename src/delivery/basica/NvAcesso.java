@@ -11,15 +11,15 @@ package delivery.basica;
  */
 public class NvAcesso {
     
-    private int Acesso;
+    private int acesso;
     private String Descricao;
 
     public int getAcesso() {
-        return Acesso;
+        return acesso;
     }
 
-    public void setAcesso(int Acesso) {
-        this.Acesso = Acesso;
+    public void setAcesso(int acesso) {
+        this.acesso = acesso;
     }
 
     public String getDescricao() {

@@ -33,13 +33,14 @@ public class DAOLogin implements InterfaceLogin{
         
         Connection con = Conexao.getInstance().getConnection();
         
-        String sql = "INSERT INTO Login (Usuario,Nome,Senha) VALUES (?,?,?)";
+        String sql = "INSERT INTO Login (Usuario,Nome,Senha,Acesso) VALUES (?,?,?,?)";
         
         PreparedStatement pstm;
         pstm = con.prepareStatement(sql);
         pstm.setString(1,login.getUsuario());
         pstm.setString(2,login.getNome());
         pstm.setString(3,login.getSenha());
+        pstm.setInt(4,login.getNvAcesso().getAcesso());
         
         try{
          
@@ -66,13 +67,14 @@ public class DAOLogin implements InterfaceLogin{
        
        Connection con = Conexao.getInstance().getConnection();
         
-        String sql = "UPDATE Login SET Nome = ?,Senha = ? WHERE Usuario = ?";
+        String sql = "UPDATE Login SET Nome = ?,Senha = ?, Acesso = ? WHERE Usuario = ?";
         
         PreparedStatement pstm;
         pstm = con.prepareStatement(sql);
         pstm.setString(1,login.getNome());
         pstm.setString(2,login.getSenha());
-        pstm.setString(3,login.getUsuario());
+        pstm.setInt(3,login.getNvAcesso().getAcesso());
+        pstm.setString(4,login.getUsuario());
         
         try{
             
@@ -135,7 +137,7 @@ public class DAOLogin implements InterfaceLogin{
         
         Connection con = Conexao.getInstance().getConnection();
         
-        String sql = "SELECT Usuario,Nome,Senha FROM Login";
+        String sql = "SELECT Usuario,Nome,Senha,Acesso FROM Login";
         
         PreparedStatement pstm;
         pstm = con.prepareStatement(sql);
@@ -148,6 +150,7 @@ public class DAOLogin implements InterfaceLogin{
             login.setUsuario(rs.getString("Usuario"));
             login.setNome(rs.getString("Nome"));
             login.setSenha(rs.getString("Senha"));
+            login.getNvAcesso().setAcesso(rs.getInt("Acesso"));
             lista.add(login);
         }
         }
