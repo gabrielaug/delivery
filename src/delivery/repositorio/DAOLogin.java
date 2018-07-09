@@ -29,7 +29,7 @@ public class DAOLogin implements InterfaceLogin{
      * @throws SQLException 
      */
     @Override
-    public void insert(Login login) throws Exception, SQLException {
+    public void inserir(Login login) throws Exception, SQLException {
         
         Connection con = Conexao.getInstance().getConnection();
         
@@ -63,7 +63,7 @@ public class DAOLogin implements InterfaceLogin{
      * @throws SQLException 
      */
     @Override
-    public void update(Login login) throws Exception, SQLException {
+    public void alterar(Login login) throws Exception, SQLException {
        
        Connection con = Conexao.getInstance().getConnection();
         
@@ -97,7 +97,7 @@ public class DAOLogin implements InterfaceLogin{
      * @throws SQLException 
      */
     @Override
-    public void delete(Login login) throws Exception, SQLException {
+    public void excluir(Login login) throws Exception, SQLException {
      
         Connection con = Conexao.getInstance().getConnection();
         
@@ -130,7 +130,7 @@ public class DAOLogin implements InterfaceLogin{
      * @throws SQLException 
      */
     @Override
-    public ArrayList<Login> list() throws Exception, SQLException {
+    public ArrayList<Login> listar() throws Exception, SQLException {
         
         ArrayList<Login> lista = new ArrayList<>();
         Login login = new Login();

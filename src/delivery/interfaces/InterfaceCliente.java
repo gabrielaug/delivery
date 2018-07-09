@@ -15,9 +15,9 @@ import java.util.ArrayList;
  */
 public interface InterfaceCliente {
     
-    public void insert(Cliente cliente)throws Exception, SQLException;
-    public void update(Cliente cliente)throws Exception, SQLException;
-    public void delete(Cliente cliente)throws Exception, SQLException;
-    public ArrayList<Cliente> list() throws Exception, SQLException;
+    public void inserir(Cliente cliente)throws Exception, SQLException;
+    public void alterar(Cliente cliente)throws Exception, SQLException;
+    public void excluir(Cliente cliente)throws Exception, SQLException;
+    public ArrayList<Cliente> listar() throws Exception, SQLException;
     
 }

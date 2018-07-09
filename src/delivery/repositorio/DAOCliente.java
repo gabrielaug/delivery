@@ -10,6 +10,7 @@ import delivery.interfaces.InterfaceCliente;
 import delivery.util.Conexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -19,18 +20,31 @@ import java.util.ArrayList;
  */
 public class DAOCliente implements InterfaceCliente{
 
+    /**
+     * METODO USADO PARA INSERIR UM CLIENTE NO BANCO DE DADOS
+     * @param cliente OBJETO A SER INSERIDO
+     * @throws Exception
+     * @throws SQLException 
+     */
     @Override
-    public void insert(Cliente cliente) throws Exception, SQLException {
+    public void inserir(Cliente cliente) throws Exception, SQLException {
         
         Connection con = Conexao.getInstance().getConnection();
         
-        String sql = "INSERT INTO Cliente (Usuario,Nome,Senha) VALUES (?,?,?)";
+        String sql = "INSERT INTO Cliente (Nome,CPF,Telefone,Telefone2,Telefone3,Logradouro,CEP,Numero,Complemento,Referencia) VALUES (?,?,?,?,?,?,?,?,?,?)";
         
         PreparedStatement pstm;
         pstm = con.prepareStatement(sql);
-        pstm.setString(1,login.getUsuario());
-        pstm.setString(2,login.getNome());
-        pstm.setString(3,login.getSenha());
+        pstm.setString(1,cliente.getNome());
+        pstm.setString(2,cliente.getCpf());
+        pstm.setString(3,cliente.getTelefone());
+        pstm.setString(4,cliente.getTelefone2());
+        pstm.setString(5,cliente.getTelefone3());
+        pstm.setString(6,cliente.getLogradouro());
+        pstm.setString(7,cliente.getCep());
+        pstm.setString(8,cliente.getNumero());
+        pstm.setString(9,cliente.getComplemento());
+        pstm.setString(10,cliente.getReferencia());
         
         try{
          
@@ -45,20 +59,122 @@ public class DAOCliente implements InterfaceCliente{
         }
         
     }
-
-    @Override
-    public void update(Cliente cliente) throws Exception, SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void delete(Cliente cliente) throws Exception, SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public ArrayList<Cliente> list() throws Exception, SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     
+    /**
+     * METODO USADO PARA ALTERAR UM DETERMINADO CLIENTE NO BANCO DE DADOS
+     * @param cliente OBJETO A SER ALTERADO NO BANCO DE DADOS
+     * @throws Exception
+     * @throws SQLException 
+     */
+    @Override
+    public void alterar(Cliente cliente) throws Exception, SQLException {
+        
+        Connection con = Conexao.getInstance().getConnection();
+        
+        String sql = "UPDATE Cliente SET Nome = ?,Telefone = ?,Telefone2 = ?,Telefone3 = ?"
+                + ",Logradouro = ?,CEP = ?,Numero = ?,Complemento = ?,Referencia = ? WHERE CPF = ?";
+        
+        PreparedStatement pstm;
+        pstm = con.prepareStatement(sql);
+        pstm.setString(1,cliente.getNome());
+        pstm.setString(2,cliente.getTelefone());
+        pstm.setString(3,cliente.getTelefone2());
+        pstm.setString(4,cliente.getTelefone3());
+        pstm.setString(5,cliente.getLogradouro());
+        pstm.setString(6,cliente.getCep());
+        pstm.setString(7,cliente.getNumero());
+        pstm.setString(8,cliente.getComplemento());
+        pstm.setString(9,cliente.getReferencia());
+        pstm.setString(10,cliente.getCpf());
+        
+        try{
+            
+        pstm.executeUpdate();
+        
+        }
+        catch(SQLException ex){
+            
+        }
+        finally{
+          Conexao.closeConnection(con, pstm);  
+        }
+    }
+
+    /**
+     * METODO USADO PARA EXCLUIR UM DETERMINADO CLIENTE DO BANCO DE DADOS
+     * @param cliente OBJETO A SER EXCLUIDO
+     * @throws Exception
+     * @throws SQLException 
+     */
+    @Override
+    public void excluir(Cliente cliente) throws Exception, SQLException {
+        
+        Connection con = Conexao.getInstance().getConnection();
+        
+        String sql = "DELETE FROM Cliente WHERE CPF = ?";
+        
+        PreparedStatement pstm;
+        pstm = con.prepareStatement(sql);
+        pstm.setString(1,cliente.getCpf());
+        
+        try{
+            
+        pstm.execute();
+        
+        }
+        catch(SQLException ex){
+            
+        }
+        finally{   
+            
+        Conexao.closeConnection(con, pstm);
+        
+        } 
+    }
+
+    /**
+     * METODO USADO PARA BUSCA UMA LISTA DE CLIENTE NO BANCO DE DADAOS
+     * @return RETORNA UMA LISTA
+     * @throws Exception
+     * @throws SQLException 
+     */
+    @Override
+    public ArrayList<Cliente> listar() throws Exception, SQLException {
+        
+    ArrayList<Cliente> lista = new ArrayList<>();
+        Cliente cliente = new Cliente();
+        
+        Connection con = Conexao.getInstance().getConnection();
+        
+        String sql = "SELECT Nome,CPF,Telefone,Telefone2,Telefone3,Logradouro,CEP,Numero,Complemento,Referencia FROM Cliente";
+        
+        PreparedStatement pstm;
+        pstm = con.prepareStatement(sql);
+        ResultSet rs = null;
+        
+        try{
+        rs = pstm.executeQuery();
+        
+        while(rs.next()){
+            cliente.setNome(rs.getString("Nome"));
+            cliente.setCpf(rs.getString("CPF"));
+            cliente.setTelefone(rs.getString("Telefone"));
+            cliente.setTelefone2(rs.getString("Telefone2"));
+            cliente.setTelefone3(rs.getString("Telefone3"));
+            cliente.setLogradouro(rs.getString("Logradouro"));
+            cliente.setCep(rs.getString("CEP"));
+            cliente.setNumero(rs.getString("Numero"));
+            cliente.setComplemento(rs.getString("Complemento"));
+            cliente.setReferencia(rs.getString("Referencia"));
+            lista.add(cliente);
+        }
+        }
+        catch(SQLException ex){
+            
+        }
+        finally{
+            Conexao.closeConnection(con, pstm, rs);
+        }
+        return lista;
+    }
 }
