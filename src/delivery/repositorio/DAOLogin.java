@@ -163,4 +163,32 @@ public class DAOLogin implements InterfaceLogin{
         return lista;
     }
     
+    
+    public boolean consultarUsuExiste(Login login) throws Exception, SQLException {
+        
+        
+        Connection con = Conexao.getInstance().getConnection();
+        
+        String sql = "SELECT Usuario,Nome,Senha,Acesso FROM Login WHERE Usuario = ?";
+        
+        PreparedStatement pstm;
+        pstm = con.prepareStatement(sql);
+        ResultSet rs = null;
+        boolean retorno = false;
+        try{
+        rs = pstm.executeQuery();
+        
+            if(rs.next()){
+                return retorno = true;
+            }
+        }
+        catch(SQLException ex){
+            
+        }
+        finally{
+            Conexao.closeConnection(con, pstm, rs);
+        }
+        return retorno;
+    }
+    
 }
