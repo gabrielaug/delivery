@@ -8,6 +8,7 @@ package delivery.repositorio;
 import delivery.basica.Pedido;
 import delivery.interfaces.InterfacePedido;
 import delivery.util.Conexao;
+import delivery.util.DAOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,11 +24,11 @@ public class DAOPedido implements InterfacePedido{
     /**
      * INSERI O UM NOVO PEDIDO NO BANCO DE DADOS
      * @param pedido - OBJETO A SER INSERIDO
-     * @throws Exception
+     * @throws DAOException
      * @throws SQLException 
      */
     @Override
-    public void inserir(Pedido pedido) throws Exception, SQLException {
+    public void inserir(Pedido pedido) throws DAOException, SQLException {
         
         Connection con = Conexao.getInstance().getConnection();
         
@@ -54,11 +55,11 @@ public class DAOPedido implements InterfacePedido{
     /**
      * ALTERA O PEDIDO JÁ CADASTRADO NO BANCO DE DADOS
      * @param pedido - OBJETO A SER ALTERADO
-     * @throws Exception
+     * @throws DAOException
      * @throws SQLException 
      */
     @Override
-    public void alterar(Pedido pedido) throws Exception, SQLException {
+    public void alterar(Pedido pedido) throws DAOException, SQLException {
         
         Connection con = Conexao.getInstance().getConnection();
         
@@ -90,11 +91,11 @@ public class DAOPedido implements InterfacePedido{
     /**
      * EXCLUI UM OBJETO CADASTRADO NO BANCO DE DADOS
      * @param pedido - OBJETO A SER EXCLUÍDO!
-     * @throws Exception
+     * @throws DAOException
      * @throws SQLException 
      */
     @Override
-    public void excluir(Pedido pedido) throws Exception, SQLException {
+    public void excluir(Pedido pedido) throws DAOException, SQLException {
     
         Connection con = Conexao.getInstance().getConnection();
         
@@ -120,11 +121,11 @@ public class DAOPedido implements InterfacePedido{
     /**
      * LISTA OS ITENS CADASTRADOS NO BANCO DE DADOS.
      * @return - RETORNA A LISTA CARRAGADA DO BANCO DE DADOS.
-     * @throws Exception
+     * @throws DAOException
      * @throws SQLException 
      */
     @Override
-    public ArrayList<Pedido> listar() throws Exception, SQLException {
+    public ArrayList<Pedido> listar() throws DAOException, SQLException {
      
         ArrayList<Pedido> lista = new ArrayList<>();
         Pedido pedido = new Pedido();

@@ -6,6 +6,7 @@
 package delivery.interfaces;
 
 import delivery.basica.Pedido;
+import delivery.util.DAOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -16,13 +17,13 @@ import java.util.ArrayList;
 public interface InterfacePedido {
     
     
-    public void inserir (Pedido pedido) throws Exception, SQLException;
+    public void inserir (Pedido pedido) throws DAOException, SQLException;
     
-    public void alterar (Pedido pedido) throws Exception, SQLException;
+    public void alterar (Pedido pedido) throws DAOException, SQLException;
     
-    public void excluir (Pedido pedido) throws Exception, SQLException;
+    public void excluir (Pedido pedido) throws DAOException, SQLException;
     
-    public ArrayList<Pedido> listar() throws Exception, SQLException;
+    public ArrayList<Pedido> listar() throws DAOException, SQLException;
     
     
 }
