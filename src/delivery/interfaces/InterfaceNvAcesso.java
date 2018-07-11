@@ -6,6 +6,7 @@
 package delivery.interfaces;
 
 import delivery.basica.NvAcesso;
+import delivery.util.DAOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -15,12 +16,12 @@ import java.util.ArrayList;
  */
 public interface InterfaceNvAcesso {
     
-    public void inserir (NvAcesso nvAcesso) throws Exception, SQLException;
+    public void inserir (NvAcesso nvAcesso) throws DAOException, SQLException;
     
-    public void alterar (NvAcesso nvAcesso) throws Exception, SQLException;
+    public void alterar (NvAcesso nvAcesso) throws DAOException, SQLException;
     
-    public void excluir (NvAcesso nvAcesso) throws Exception, SQLException;
+    public void excluir (NvAcesso nvAcesso) throws DAOException, SQLException;
     
-    public ArrayList<NvAcesso> listar() throws Exception, SQLException;
+    public ArrayList<NvAcesso> listar() throws DAOException, SQLException;
     
 }

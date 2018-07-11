@@ -8,6 +8,7 @@ package delivery.repositorio;
 import delivery.basica.NvAcesso;
 import delivery.interfaces.InterfaceNvAcesso;
 import delivery.util.Conexao;
+import delivery.util.DAOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,11 +24,11 @@ public class DAONvAcesso implements InterfaceNvAcesso{
     /**
      * METODO USADO PARA INSERIR NvAcesso NO BANCO DE DADOS
      * @param nvAcesso OBJETO A SER INSERIDO NO BANCO
-     * @throws Exception
+     * @throws DAOException
      * @throws SQLException 
      */
     @Override
-    public void inserir(NvAcesso nvAcesso) throws Exception, SQLException {
+    public void inserir(NvAcesso nvAcesso) throws DAOException, SQLException {
         
         
         Connection con = Conexao.getInstance().getConnection();
@@ -53,11 +54,11 @@ public class DAONvAcesso implements InterfaceNvAcesso{
     /**
      * METODO USADO PARA ALTERAR UM NvAcesso NO BANCO DE DADOS
      * @param nvAcesso OBJETO A SER ALTERADO
-     * @throws Exception
+     * @throws DAOException
      * @throws SQLException 
      */
     @Override
-    public void alterar(NvAcesso nvAcesso) throws Exception, SQLException {
+    public void alterar(NvAcesso nvAcesso) throws DAOException, SQLException {
         
         Connection con = Conexao.getInstance().getConnection();
         
@@ -85,11 +86,11 @@ public class DAONvAcesso implements InterfaceNvAcesso{
     /**
      * METODO USADO PARA EXCLUIR UM NvAcesso NO BANCO DE DADOS
      * @param nvAcesso
-     * @throws Exception
+     * @throws DAOException
      * @throws SQLException 
      */
     @Override
-    public void excluir(NvAcesso nvAcesso) throws Exception, SQLException {
+    public void excluir(NvAcesso nvAcesso) throws DAOException, SQLException {
         
         Connection con = Conexao.getInstance().getConnection();
         
@@ -118,11 +119,11 @@ public class DAONvAcesso implements InterfaceNvAcesso{
     /**
      * METODO USADO PARA LISTAR OS NvAcesso NO BANCO DE DADOS
      * @return RETORNA UMA LISTA COM OS NvAcesso
-     * @throws Exception
+     * @throws DAOException
      * @throws SQLException 
      */
     @Override
-    public ArrayList<NvAcesso> listar() throws Exception, SQLException {
+    public ArrayList<NvAcesso> listar() throws DAOException, SQLException {
         
         ArrayList<NvAcesso> lista = new ArrayList<>();
         NvAcesso nvAcesso = new NvAcesso();
@@ -151,6 +152,34 @@ public class DAONvAcesso implements InterfaceNvAcesso{
             Conexao.closeConnection(con, pstm, rs);
         }
         return lista;
+    }
+    
+    public boolean consultarAcessoExiste(NvAcesso nvAcesso) throws DAOException, SQLException {
+        
+        
+        Connection con = Conexao.getInstance().getConnection();
+        
+        String sql = "SELECT Acesso,Descricao FROM Nv_Acesso WHERE Acesso = ?";
+        
+        PreparedStatement pstm;
+        pstm = con.prepareStatement(sql);
+        pstm.setInt(1,nvAcesso.getAcesso());
+        ResultSet rs = null;
+        boolean retorno = false;
+        try{
+        rs = pstm.executeQuery();
+        
+            if(rs.next()){
+                return retorno = true;
+            }
+        }
+        catch(SQLException ex){
+            
+        }
+        finally{
+            Conexao.closeConnection(con, pstm, rs);
+        }
+        return retorno;
     }
         
 }
