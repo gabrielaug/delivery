@@ -6,6 +6,7 @@
 package delivery.interfaces;
 
 import delivery.basica.Login;
+import delivery.util.DAOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -16,10 +17,10 @@ import java.util.ArrayList;
 public interface InterfaceLogin {
     
     
-    public void inserir(Login login)throws Exception, SQLException;
-    public void alterar(Login login)throws Exception, SQLException;
-    public void excluir(Login login)throws Exception, SQLException;
-    public ArrayList<Login> listar() throws Exception, SQLException;
+    public void inserir(Login login)throws DAOException, SQLException;
+    public void alterar(Login login)throws DAOException, SQLException;
+    public void excluir(Login login)throws DAOException, SQLException;
+    public ArrayList<Login> listar() throws DAOException, SQLException;
  
 }
 

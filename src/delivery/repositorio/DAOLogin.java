@@ -8,6 +8,7 @@ package delivery.repositorio;
 import delivery.basica.Login;
 import delivery.interfaces.InterfaceLogin;
 import delivery.util.Conexao;
+import delivery.util.DAOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,11 +26,11 @@ public class DAOLogin implements InterfaceLogin{
     /**
      * METODO USADO PARA INSERIR UM LOGIN NO BANCO DE DADOS
      * @param login OBJETO QUE SERA INSERIDO NO BANCO
-     * @throws Exception
+     * @throws DAOException
      * @throws SQLException 
      */
     @Override
-    public void inserir(Login login) throws Exception, SQLException {
+    public void inserir(Login login) throws DAOException, SQLException {
         
         Connection con = Conexao.getInstance().getConnection();
         
@@ -59,11 +60,11 @@ public class DAOLogin implements InterfaceLogin{
     /**
      * METODO USADO PARA ATUALIZA DADOS DO OBJETO NO BANCO DE DADOS
      * @param login OBJETO COM AS ATUALIZAÇÕES A SEREM REALIZADAS NO BANCO
-     * @throws Exception
+     * @throws DAOException
      * @throws SQLException 
      */
     @Override
-    public void alterar(Login login) throws Exception, SQLException {
+    public void alterar(Login login) throws DAOException, SQLException {
        
        Connection con = Conexao.getInstance().getConnection();
         
@@ -93,11 +94,11 @@ public class DAOLogin implements InterfaceLogin{
     /**
      * METODO USADO PARA DELETA UM DETERMINADO LOGIN NO BANCO DE DADOS
      * @param login OBJETO A SER DELETADO
-     * @throws Exception
+     * @throws DAOException
      * @throws SQLException 
      */
     @Override
-    public void excluir(Login login) throws Exception, SQLException {
+    public void excluir(Login login) throws DAOException, SQLException {
      
         Connection con = Conexao.getInstance().getConnection();
         
@@ -126,11 +127,11 @@ public class DAOLogin implements InterfaceLogin{
     /**
      * METODO USADO PARA LISTAR OS LOGIN'S NO BANCO DE DADOS
      * @return RETORNA A LISTA DE LOGIN'S
-     * @throws Exception
+     * @throws DAOException
      * @throws SQLException 
      */
     @Override
-    public ArrayList<Login> listar() throws Exception, SQLException {
+    public ArrayList<Login> listar() throws DAOException, SQLException {
         
         ArrayList<Login> lista = new ArrayList<>();
         Login login = new Login();
@@ -164,7 +165,7 @@ public class DAOLogin implements InterfaceLogin{
     }
     
     
-    public boolean consultarUsuExiste(Login login) throws Exception, SQLException {
+    public boolean consultarUsuExiste(Login login) throws DAOException, SQLException {
         
         
         Connection con = Conexao.getInstance().getConnection();
@@ -173,6 +174,7 @@ public class DAOLogin implements InterfaceLogin{
         
         PreparedStatement pstm;
         pstm = con.prepareStatement(sql);
+        pstm.setString(1,login.getUsuario());
         ResultSet rs = null;
         boolean retorno = false;
         try{

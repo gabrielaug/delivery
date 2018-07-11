@@ -6,6 +6,7 @@
 package delivery.interfaces;
 
 import delivery.basica.Cliente;
+import delivery.util.DAOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -15,9 +16,9 @@ import java.util.ArrayList;
  */
 public interface InterfaceCliente {
     
-    public void inserir(Cliente cliente)throws Exception, SQLException;
-    public void alterar(Cliente cliente)throws Exception, SQLException;
-    public void excluir(Cliente cliente)throws Exception, SQLException;
-    public ArrayList<Cliente> listar() throws Exception, SQLException;
+    public void inserir(Cliente cliente)throws DAOException, SQLException;
+    public void alterar(Cliente cliente)throws DAOException, SQLException;
+    public void excluir(Cliente cliente)throws DAOException, SQLException;
+    public ArrayList<Cliente> listar() throws DAOException, SQLException;
     
 }

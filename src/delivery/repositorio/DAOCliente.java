@@ -8,6 +8,7 @@ package delivery.repositorio;
 import delivery.basica.Cliente;
 import delivery.interfaces.InterfaceCliente;
 import delivery.util.Conexao;
+import delivery.util.DAOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,11 +24,11 @@ public class DAOCliente implements InterfaceCliente{
     /**
      * METODO USADO PARA INSERIR UM CLIENTE NO BANCO DE DADOS
      * @param cliente OBJETO A SER INSERIDO
-     * @throws Exception
+     * @throws DAOException
      * @throws SQLException 
      */
     @Override
-    public void inserir(Cliente cliente) throws Exception, SQLException {
+    public void inserir(Cliente cliente) throws DAOException, SQLException {
         
         Connection con = Conexao.getInstance().getConnection();
         
@@ -63,11 +64,11 @@ public class DAOCliente implements InterfaceCliente{
     /**
      * METODO USADO PARA ALTERAR UM DETERMINADO CLIENTE NO BANCO DE DADOS
      * @param cliente OBJETO A SER ALTERADO NO BANCO DE DADOS
-     * @throws Exception
+     * @throws DAOException
      * @throws SQLException 
      */
     @Override
-    public void alterar(Cliente cliente) throws Exception, SQLException {
+    public void alterar(Cliente cliente) throws DAOException, SQLException {
         
         Connection con = Conexao.getInstance().getConnection();
         
@@ -103,11 +104,11 @@ public class DAOCliente implements InterfaceCliente{
     /**
      * METODO USADO PARA EXCLUIR UM DETERMINADO CLIENTE DO BANCO DE DADOS
      * @param cliente OBJETO A SER EXCLUIDO
-     * @throws Exception
+     * @throws DAOException
      * @throws SQLException 
      */
     @Override
-    public void excluir(Cliente cliente) throws Exception, SQLException {
+    public void excluir(Cliente cliente) throws DAOException, SQLException {
         
         Connection con = Conexao.getInstance().getConnection();
         
@@ -135,11 +136,11 @@ public class DAOCliente implements InterfaceCliente{
     /**
      * METODO USADO PARA BUSCA UMA LISTA DE CLIENTE NO BANCO DE DADAOS
      * @return RETORNA UMA LISTA
-     * @throws Exception
+     * @throws DAOException
      * @throws SQLException 
      */
     @Override
-    public ArrayList<Cliente> listar() throws Exception, SQLException {
+    public ArrayList<Cliente> listar() throws DAOException, SQLException {
         
     ArrayList<Cliente> lista = new ArrayList<>();
         Cliente cliente = new Cliente();
@@ -177,4 +178,33 @@ public class DAOCliente implements InterfaceCliente{
         }
         return lista;
     }
+    
+    public boolean consultarClienteExistente(Cliente cliente) throws DAOException, SQLException {
+        
+        
+        Connection con = Conexao.getInstance().getConnection();
+        
+        String sql = "SELECT Nome,CPF,Telefone,Telefone2,Telefone3,Logradouro,CEP,Numero,Complemento,Referencia FROM Cliente WHERE CPF = ?";
+        
+        PreparedStatement pstm;
+        pstm = con.prepareStatement(sql);
+        pstm.setString(1,cliente.getCpf());
+        ResultSet rs = null;
+        boolean retorno = false;
+        try{
+        rs = pstm.executeQuery();
+        
+            if(rs.next()){
+                return retorno = true;
+            }
+        }
+        catch(SQLException ex){
+            
+        }
+        finally{
+            Conexao.closeConnection(con, pstm, rs);
+        }
+        return retorno;
+    }
+    
 }
