@@ -72,13 +72,13 @@ public class DAOCliente implements InterfaceCliente{
         
         Connection con = Conexao.getInstance().getConnection();
         
-        String sql = "UPDATE Cliente SET Nome = ?,Telefone = ?,Telefone2 = ?,Telefone3 = ?"
-                + ",Logradouro = ?,CEP = ?,Numero = ?,Complemento = ?,Referencia = ? WHERE CPF = ?";
+        String sql = "UPDATE Cliente SET Nome = ?,CPF = ?,Telefone2 = ?,Telefone3 = ?"
+                + ",Logradouro = ?,CEP = ?,Numero = ?,Complemento = ?,Referencia = ? WHERE Telefone = ?";
         
         PreparedStatement pstm;
         pstm = con.prepareStatement(sql);
         pstm.setString(1,cliente.getNome());
-        pstm.setString(2,cliente.getTelefone());
+        pstm.setString(2,cliente.getCpf());
         pstm.setString(3,cliente.getTelefone2());
         pstm.setString(4,cliente.getTelefone3());
         pstm.setString(5,cliente.getLogradouro());
@@ -86,7 +86,7 @@ public class DAOCliente implements InterfaceCliente{
         pstm.setString(7,cliente.getNumero());
         pstm.setString(8,cliente.getComplemento());
         pstm.setString(9,cliente.getReferencia());
-        pstm.setString(10,cliente.getCpf());
+        pstm.setString(10,cliente.getTelefone());
         
         try{
             
@@ -112,11 +112,11 @@ public class DAOCliente implements InterfaceCliente{
         
         Connection con = Conexao.getInstance().getConnection();
         
-        String sql = "DELETE FROM Cliente WHERE CPF = ?";
+        String sql = "DELETE FROM Cliente WHERE Telefone = ?";
         
         PreparedStatement pstm;
         pstm = con.prepareStatement(sql);
-        pstm.setString(1,cliente.getCpf());
+        pstm.setString(1,cliente.getTelefone());
         
         try{
             
@@ -184,11 +184,11 @@ public class DAOCliente implements InterfaceCliente{
         
         Connection con = Conexao.getInstance().getConnection();
         
-        String sql = "SELECT Nome,CPF,Telefone,Telefone2,Telefone3,Logradouro,CEP,Numero,Complemento,Referencia FROM Cliente WHERE CPF = ?";
+        String sql = "SELECT Nome,CPF,Telefone,Telefone2,Telefone3,Logradouro,CEP,Numero,Complemento,Referencia FROM Cliente WHERE Telefone = ?";
         
         PreparedStatement pstm;
         pstm = con.prepareStatement(sql);
-        pstm.setString(1,cliente.getCpf());
+        pstm.setString(1,cliente.getTelefone());
         ResultSet rs = null;
         boolean retorno = false;
         try{

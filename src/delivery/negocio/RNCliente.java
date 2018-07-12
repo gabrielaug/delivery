@@ -105,10 +105,10 @@ public class RNCliente implements InterfaceCliente{
         if(cliente.getNome().length() > 50){
             throw new DAOException("Caracter de Nome Excedido : 50");
         }
-        
-        if(cliente.getCpf().trim().isEmpty() || cliente.getCpf().equalsIgnoreCase("")){
+        //CPF NÃO É OBRIGATORIO
+        /*if(cliente.getCpf().trim().isEmpty() || cliente.getCpf().equalsIgnoreCase("")){
             throw new DAOException("CPF não pode ser nulo ou branco");
-        }
+        }*/
         
         if(cliente.getTelefone().trim().isEmpty() || cliente.getTelefone().equals("")){
             throw new DAOException ("Telefone não pode ser branco ou nulo");
