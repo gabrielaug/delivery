@@ -52,11 +52,17 @@ public class RNLogin implements InterfaceLogin{
         
         validarAtributos(login);
         if(dao.consultarUsuExiste(login)){
-         dao.alterar(login);   
+            if(login.getUsuario().equalsIgnoreCase("suporte")){
+                throw new DAOException("Impossivel alterar o usuário SUPORTE");
+            }
+            
+            dao.alterar(login); 
         }
+        
         else{
             throw new DAOException ("Login não Existe");
         }
+        
                 
     }
 
@@ -91,6 +97,17 @@ public class RNLogin implements InterfaceLogin{
      return dao.listar();
     }
     
+    public boolean logar(Login login) throws DAOException, SQLException{
+        
+       if(dao.validarLogin(login) == null){
+           throw new DAOException("Usuário ou Senha Invalido.");
+       }
+        
+     return true;   
+    }
+    
+    
+    
     /**
      * METODO USADO PARA VALIDAR TODOS OS ATRIBUTOS DO OBJETO LOGIN
      * @param login OBJETO A SER VALIDADO
@@ -106,13 +123,14 @@ public class RNLogin implements InterfaceLogin{
             throw new DAOException("Caracter de Usuario Excedido : 25");
         }
         
-        if(login.getNome().trim().isEmpty() || login.getNome().equalsIgnoreCase("")){
+        //NAO UTILIZADO
+        /*if(login.getNome().trim().isEmpty() || login.getNome().equalsIgnoreCase("")){
             throw new DAOException("Nome não pode ser branco ou nulo");
         }
         
         if(login.getNome().length() > 50){
             throw new DAOException("Caracter de Nome Excedido : 50");
-        }
+        }*/
         
         if(login.getSenha().trim().isEmpty() || login.getSenha().equalsIgnoreCase("")){
             throw new DAOException("Senha não pode ser nulo ou branco");
@@ -122,9 +140,13 @@ public class RNLogin implements InterfaceLogin{
             throw new DAOException ("Erro Limite de Caracteres na Senha : 35");
         }
         
-        if(login.getNvAcesso().getAcesso() == 0) {
+        if(login.getSenha().length() < 35){
+            throw new DAOException ("Erro Digite uma Senha");
+        }
+        
+        /*if(login.getNvAcesso().getAcesso() == 0) {
         throw new DAOException ("Nivel de Acesso não pode ser 0");    
-        } 
+        } */
         
     }
     

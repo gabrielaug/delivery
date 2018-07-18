@@ -165,7 +165,7 @@ public class DAOLogin implements InterfaceLogin{
     }
     
     
-    public boolean consultarUsuExiste(Login login) throws DAOException, SQLException {
+     public boolean consultarUsuExiste(Login login) throws DAOException, SQLException {
         
         
         Connection con = Conexao.getInstance().getConnection();
@@ -181,6 +181,7 @@ public class DAOLogin implements InterfaceLogin{
         rs = pstm.executeQuery();
         
             if(rs.next()){
+            
                 return retorno = true;
             }
         }
@@ -191,6 +192,41 @@ public class DAOLogin implements InterfaceLogin{
             Conexao.closeConnection(con, pstm, rs);
         }
         return retorno;
+    }
+    
+    
+    
+    public Login validarLogin(Login login) throws DAOException, SQLException {
+        
+        
+        Connection con = Conexao.getInstance().getConnection();
+        
+        String sql = "SELECT Usuario,Nome,Senha,Acesso FROM Login WHERE Usuario = ? and Senha = ?";
+        
+        PreparedStatement pstm;
+        pstm = con.prepareStatement(sql);
+        pstm.setString(1,login.getUsuario());
+        pstm.setString(2,login.getSenha());
+        ResultSet rs = null;
+        Login retorno = new Login();
+        try{
+        rs = pstm.executeQuery();
+        
+            if(rs.next()){
+            retorno.setUsuario(rs.getString("Usuario"));
+            retorno.setNome(rs.getString("Nome"));
+            retorno.setSenha(rs.getString("Senha"));
+            retorno.getNvAcesso().setAcesso(rs.getInt("Acesso"));
+                return retorno;
+            }
+        }
+        catch(SQLException ex){
+            
+        }
+        finally{
+            Conexao.closeConnection(con, pstm, rs);
+        }
+        return null;
     }
     
 }
