@@ -25,7 +25,9 @@ public class MD5 {
         String s= senha;
        MessageDigest m = MessageDigest.getInstance("MD5");
        m.update(s.getBytes(),0,s.length()); 
-       return new BigInteger(1,m.digest()).toString(16);
+       String retorno;
+       retorno = new BigInteger(1,m.digest()).toString(16);
+       return retorno;
     }
     
 }

@@ -118,13 +118,12 @@ public class TelaLogin extends javax.swing.JFrame {
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
         
       login.setUsuario(txtLogin.getText());
-        try {
-            login.setSenha(md5.converter(String.valueOf(txtSenha.getPassword())));
-        } catch (NoSuchAlgorithmException ex) {
+      login.setSenha(String.valueOf(txtSenha.getPassword()));
         
-        }
         try {
-            rn.logar(login);
+            TelaPrincipal telaPrincipal = new TelaPrincipal(rn.logar(login));
+            dispose();
+            telaPrincipal.setVisible(true);
         } catch (DAOException | SQLException ex) {
             
         }

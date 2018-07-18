@@ -6,6 +6,7 @@
 package delivery.telas;
 
 
+import delivery.basica.Login;
 import java.awt.Dimension;
 
 /**
@@ -14,17 +15,24 @@ import java.awt.Dimension;
  */
 public class TelaPrincipal extends javax.swing.JFrame {
     
+    Login login;
     /**
      * Creates new form TelaPrincipal
      */
     public TelaPrincipal() {
         initComponents();
-        
-        
-        
-        //setExtendedState(MAXIMIZED_BOTH);
-        
-       
+        setExtendedState(MAXIMIZED_BOTH);
+    }
+    
+    public TelaPrincipal(Login login){
+     initComponents();
+     setExtendedState(MAXIMIZED_BOTH);
+     this.login = new Login();
+     this.login.setNome(login.getNome());
+     this.login.setUsuario(login.getUsuario());
+     this.login.setNvAcesso(login.getNvAcesso());
+     
+     
     }
 
     /**

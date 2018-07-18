@@ -9,8 +9,12 @@ import delivery.basica.Login;
 import delivery.interfaces.InterfaceLogin;
 import delivery.repositorio.DAOLogin;
 import delivery.util.DAOException;
+import delivery.util.MD5;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -50,7 +54,20 @@ public class RNLogin implements InterfaceLogin{
     @Override
     public void alterar(Login login) throws DAOException, SQLException {
         
-        validarAtributos(login);
+        if(login.getSenha().trim().isEmpty() || login.getSenha().equalsIgnoreCase("")){
+            throw new DAOException("Senha não pode ser nulo ou branco");
+        }else{
+        // CONVERSÃO DA SENHA PARA MD5
+            try{
+                MD5 md5 = new MD5();
+                login.setSenha(md5.converter(login.getSenha()));
+            } catch (NoSuchAlgorithmException ex) {
+            
+            }
+        }
+        
+        validarAtributos(login);  
+        
         if(dao.consultarUsuExiste(login)){
             if(login.getUsuario().equalsIgnoreCase("suporte")){
                 throw new DAOException("Impossivel alterar o usuário SUPORTE");
@@ -97,13 +114,27 @@ public class RNLogin implements InterfaceLogin{
      return dao.listar();
     }
     
-    public boolean logar(Login login) throws DAOException, SQLException{
+    public Login logar(Login login) throws DAOException, SQLException{
         
-       if(dao.validarLogin(login) == null){
+        if(login.getSenha().trim().isEmpty() || login.getSenha().equalsIgnoreCase("")){
+            throw new DAOException("Senha não pode ser nulo ou branco");
+        }else{
+        // CONVERSÃO DA SENHA PARA MD5
+            try{
+                MD5 md5 = new MD5();
+                login.setSenha(md5.converter(login.getSenha()));
+            } catch (NoSuchAlgorithmException ex) {
+            
+            }
+        }
+        
+        Login retornoDAO = dao.validarLogin(login);
+        
+       if(retornoDAO == null){
            throw new DAOException("Usuário ou Senha Invalido.");
        }
         
-     return true;   
+     return retornoDAO;   
     }
     
     
@@ -132,16 +163,10 @@ public class RNLogin implements InterfaceLogin{
             throw new DAOException("Caracter de Nome Excedido : 50");
         }*/
         
-        if(login.getSenha().trim().isEmpty() || login.getSenha().equalsIgnoreCase("")){
-            throw new DAOException("Senha não pode ser nulo ou branco");
-        }
+        
         
         if(login.getSenha().length() > 35){
             throw new DAOException ("Erro Limite de Caracteres na Senha : 35");
-        }
-        
-        if(login.getSenha().length() < 35){
-            throw new DAOException ("Erro Digite uma Senha");
         }
         
         /*if(login.getNvAcesso().getAcesso() == 0) {
