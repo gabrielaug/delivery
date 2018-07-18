@@ -25,5 +25,7 @@ public interface InterfacePedido {
     
     public ArrayList<Pedido> listar() throws DAOException, SQLException;
     
+    public Pedido rastrearCodigoPedido(Pedido pedido) throws DAOException, SQLException;
+    
     
 }

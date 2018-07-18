@@ -32,11 +32,11 @@ public class DAOPedido implements InterfacePedido{
         
         Connection con = Conexao.getInstance().getConnection();
         
-        String sql = "INSERT INTO Pedido (CPF,Valor_Total,Obs_Cliente,Dt_Pedido) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO Pedido (Telefone,Valor_Total,Obs_Cliente,Dt_Pedido) VALUES (?,?,?,?)";
         
         PreparedStatement pstm;
         pstm = con.prepareStatement(sql);
-        pstm.setString(1,pedido.getCpf());
+        pstm.setString(1,pedido.getCliente().getTelefone());
         pstm.setDouble(2,pedido.getValorTotal());
         pstm.setString(3,pedido.getObsCliente());
         pstm.setDate(4,pedido.getDtPedido());
@@ -63,18 +63,15 @@ public class DAOPedido implements InterfacePedido{
         
         Connection con = Conexao.getInstance().getConnection();
         
-        String sql = "UPDATE Pedido SET CPF = ?,"
-                + "Valor_Total = ?,"
+        String sql = "UPDATE Pedido SET  Valor_Total = ?,"
                 + "Obs_Cliente =?,"
-                + "Dt_Pedido =? WHERE Cod_Pedido = ?";
+                + " WHERE Cod_Pedido = ?";
         
         PreparedStatement pstm;
         pstm = con.prepareStatement(sql);
-        pstm.setString(1,pedido.getCpf());
-        pstm.setDouble(2,pedido.getValorTotal());
-        pstm.setString(3,pedido.getObsCliente());
-        pstm.setDate(4,pedido.getDtPedido());
-        pstm.setInt(5,pedido.getCodPedido());
+        pstm.setDouble(1,pedido.getValorTotal());
+        pstm.setString(2,pedido.getObsCliente());
+        pstm.setInt(3,pedido.getCodPedido());
         try{
          
         pstm.executeUpdate();
@@ -132,7 +129,7 @@ public class DAOPedido implements InterfacePedido{
         
         Connection con = Conexao.getInstance().getConnection();
         
-        String sql = "SELECT Cod_Pedido, CPF, Valor_Total, Obs_Clientem Dt_Pedido FROM Pedido";
+        String sql = "SELECT Cod_Pedido, Telefone, Valor_Total, Obs_Cliente, Dt_Pedido FROM Pedido";
         
         PreparedStatement pstm;
         pstm = con.prepareStatement(sql);
@@ -143,7 +140,7 @@ public class DAOPedido implements InterfacePedido{
         
         while(rs.next()){
             pedido.setCodPedido(rs.getInt("Cod_Pedido"));
-            pedido.setCpf(rs.getString("CPF"));
+            pedido.getCliente().setTelefone(rs.getString("Telefone"));
             pedido.setValorTotal(rs.getDouble("Valor_Total"));
             pedido.setObsCliente(rs.getString("Obs_Cliente"));
             pedido.setDtPedido(rs.getDate("Dt_Pedido"));
@@ -157,6 +154,50 @@ public class DAOPedido implements InterfacePedido{
             Conexao.closeConnection(con, pstm, rs);
         }
         return lista;
+    }
+    /**
+     * RASTREIA SE O CÓDIGO DO PEDIDO ESTÁ VÁLIDO!
+     * @param pedido - OBJETO A SER CONSULTADO
+     * @return - RETORNAR O OBJETO DE CONSULTA.
+     * @throws DAOException
+     * @throws SQLException 
+     */
+    @Override
+    public Pedido rastrearCodigoPedido(Pedido pedido) throws DAOException, SQLException {
+        
+        Connection con = Conexao.getInstance().getConnection();
+        
+        String sql = "SELECT Cod_Pedido, Telefone, Valor_Total, Obs_Cliente, Dt_Pedido FROM Pedido WHERE Cod_Pedido = ?";
+        
+        PreparedStatement pstm;
+        pstm = con.prepareStatement(sql);
+        pstm.setInt(1,pedido.getCodPedido());
+        
+        ResultSet rs = null;
+        
+        Pedido pedidoCod = new Pedido();
+        
+        try{
+        rs = pstm.executeQuery();
+        
+        if(rs.next()){
+            
+            pedidoCod.setCodPedido(rs.getInt("Cod_Pedido"));
+            pedidoCod.getCliente().setTelefone(rs.getString("Telefone"));
+            pedidoCod.setValorTotal(rs.getDouble("Valor_Total"));
+            pedidoCod.setObsCliente(rs.getString("Obs_Cliente"));
+            pedidoCod.setDtPedido(rs.getDate("Dt_Pedido"));
+            return pedidoCod;
+        }
+        }
+        catch(SQLException ex){
+            
+        }
+        finally{
+            Conexao.closeConnection(con, pstm, rs);
+        }
+        return null;
+        
     }
     
    

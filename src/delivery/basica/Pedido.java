@@ -14,7 +14,7 @@ import java.sql.Date;
 public class Pedido {
     
     private int codPedido;
-    private String cpf;
+    private Cliente cliente;
     private Double valorTotal;
     private String obsCliente;
     private Date dtPedido;
@@ -27,13 +27,14 @@ public class Pedido {
         this.codPedido = codPedido;
     }
 
-    public String getCpf() {
-        return cpf;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
+    
 
     public Double getValorTotal() {
         return valorTotal;
