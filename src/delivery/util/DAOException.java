@@ -18,7 +18,7 @@ public class DAOException extends Exception {
     }
     
     public DAOException(String x){
-        JOptionPane.showMessageDialog(null, x);
+        JOptionPane.showMessageDialog(null, x,"Erro",JOptionPane.ERROR_MESSAGE);
     }
     
 }

@@ -5,8 +5,10 @@
  */
 package delivery.telas;
 
+import delivery.basica.Config;
 import delivery.basica.Login;
 import delivery.negocio.RNLogin;
+import delivery.repositorio.DAOConfig;
 import delivery.util.DAOException;
 import delivery.util.MD5;
 import java.awt.Dimension;
@@ -21,11 +23,33 @@ import java.util.logging.Logger;
  */
 public class TelaConfig extends javax.swing.JInternalFrame {
 
+    Config config;
+    DAOConfig dao;
     /**
      * Creates new form TelaConfig
      */
-    public TelaConfig() {
+    public TelaConfig(){
         initComponents();
+        config = new Config();
+        dao = new DAOConfig();
+ 
+    }
+    
+    public void  verificar() throws DAOException, SQLException {
+        config = dao.verificarConfig();
+        
+        if (config.getSnCpf().equalsIgnoreCase("N")){
+            boxCPF.setSelectedIndex(1);
+        }else{
+            boxCPF.setSelectedIndex(0);
+        }
+        
+        if(config.getSnTelaPedido().equalsIgnoreCase("N")){
+            boxPedido.setSelectedIndex(1);
+        }else{
+            boxPedido.setSelectedIndex(0);
+        } 
+        
     }
     /**
      * CONSTRUTOR RECEBENDO PARAMETROS
@@ -53,9 +77,9 @@ public class TelaConfig extends javax.swing.JInternalFrame {
 
         jComboBox1 = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
+        btnSalvarPadrao = new javax.swing.JButton();
+        btnSair = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         boxCPF = new javax.swing.JComboBox<>();
@@ -83,24 +107,24 @@ public class TelaConfig extends javax.swing.JInternalFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jButton1.setText("Salvar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnSalvarActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Configurações Padrão");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnSalvarPadrao.setText("Configurações Padrão");
+        btnSalvarPadrao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnSalvarPadraoActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Sair");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnSair.setText("Sair");
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnSairActionPerformed(evt);
             }
         });
 
@@ -110,11 +134,11 @@ public class TelaConfig extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(102, 102, 102)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(btnSalvarPadrao)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(129, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -122,9 +146,9 @@ public class TelaConfig extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(btnSalvar)
+                    .addComponent(btnSalvarPadrao)
+                    .addComponent(btnSair))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -296,34 +320,64 @@ public class TelaConfig extends javax.swing.JInternalFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblInfor, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+    
+        if(boxCPF.getSelectedItem().equals("ATIVO")){
+            config.setSnCpf("S");
+        }else{
+            config.setSnCpf("N");
+        }
+        
+        if(boxPedido.getSelectedItem().equals("ATIVO")){
+            config.setSnTelaPedido("S");
+        }else{
+            config.setSnTelaPedido("N");
+        }
+       
+        try {
+            dao.alterar(config);
+            lblInfor.setText("Configuração Salva com Sucesso...");
+        } catch (DAOException | SQLException ex) {
+            
+        }
+        
+        
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void formComponentMoved(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentMoved
      //setLocation(0,0);  //USADO PARA TRAVA A CAIXA
     }//GEN-LAST:event_formComponentMoved
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         dispose();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnSairActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-    
+    private void btnSalvarPadraoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarPadraoActionPerformed
+
+       
        boxCPF.setSelectedIndex(1);
        boxPedido.setSelectedIndex(1);
-       boxCPF.getItemAt(1);
-       boxPedido.getItemAt(1);
-       lblInfor.setText("Configuração Padrão Salva com Sucesso...");
+       config.setSnCpf("N");
+       config.setSnTelaPedido("N");
+       
+       try{
+           dao.alterar(config);
+           lblInfor.setText("Configuração Padrão Salva com Sucesso...");
+       } catch (DAOException | SQLException ex) {
+            
+        }
+       
+       
+       
        
         
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnSalvarPadraoActionPerformed
 
     private void btnAlterarSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarSenhaActionPerformed
       
@@ -335,7 +389,7 @@ public class TelaConfig extends javax.swing.JInternalFrame {
         login.setSenha(String.valueOf(txtSenha.getPassword()));
         try {
             rn.alterar(login);
-            lblInfor.setText("Senha do usuário "+login.getUsuario()+" alterada com Sucesso");
+            lblInfor.setText("Senha do usuário "+login.getUsuario()+" alterada com Sucesso...");
         } catch (DAOException | SQLException ex) {
   
         }
@@ -350,9 +404,9 @@ public class TelaConfig extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> boxCPF;
     private javax.swing.JComboBox<String> boxPedido;
     private javax.swing.JButton btnAlterarSenha;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnSair;
+    private javax.swing.JButton btnSalvar;
+    private javax.swing.JButton btnSalvarPadrao;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

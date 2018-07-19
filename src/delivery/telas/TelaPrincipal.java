@@ -7,7 +7,11 @@ package delivery.telas;
 
 
 import delivery.basica.Login;
+import delivery.util.DAOException;
 import java.awt.Dimension;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -53,6 +57,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         menuFuncionamento = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu8 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
@@ -91,6 +96,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Configurações");
+        jMenu3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu3ActionPerformed(evt);
+            }
+        });
 
         menuFuncionamento.setText("Funcionamento");
         menuFuncionamento.addActionListener(new java.awt.event.ActionListener() {
@@ -99,6 +109,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu3.add(menuFuncionamento);
+
+        jMenuItem2.setText("Empresa");
+        jMenu3.add(jMenuItem2);
 
         jMenuBar1.add(jMenu3);
 
@@ -135,8 +148,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
         desktop.removeAll();
         desktop.add(config);
         config.setPosicao();
+        try {
+            config.verificar();
+        } catch (DAOException | SQLException ex) {
+            
+        }
         config.setVisible(true);
     }//GEN-LAST:event_menuFuncionamentoActionPerformed
+
+    private void jMenu3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu3ActionPerformed
+        
+    }//GEN-LAST:event_jMenu3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -181,6 +203,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem7;

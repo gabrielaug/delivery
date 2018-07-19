@@ -11,6 +11,7 @@ import delivery.util.Conexao;
 import delivery.util.DAOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -50,6 +51,37 @@ public class DAOConfig implements InterfaceConfig{
            Conexao.closeConnection(con, pstm); 
         }
         
+    }
+    
+    
+    public Config verificarConfig() throws DAOException, SQLException {
+        
+        
+        Connection con = Conexao.getInstance().getConnection();
+        
+        String sql = "SELECT Sn_CPF,Sn_TelaPedido FROM Config WHERE Sys_Config = ?";
+        
+        PreparedStatement pstm;
+        pstm = con.prepareStatement(sql);
+        pstm.setString(1,"SISTEMA");
+        ResultSet rs = null;
+        Config retorno = new Config();
+        try{
+        rs = pstm.executeQuery();
+        
+            if(rs.next()){
+            retorno.setSnCpf(rs.getString("Sn_CPF"));
+            retorno.setSnTelaPedido(rs.getString("Sn_TelaPedido"));
+                return retorno;
+            }
+        }
+        catch(SQLException ex){
+            
+        }
+        finally{
+            Conexao.closeConnection(con, pstm, rs);
+        }
+        return null;
     }
     
     
