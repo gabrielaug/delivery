@@ -85,7 +85,7 @@ public class TelaConfig extends javax.swing.JInternalFrame {
         boxCPF = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         boxPedido = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
+        lblTiituloConfiguracao = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         lblInfor = new javax.swing.JLabel();
@@ -195,9 +195,9 @@ public class TelaConfig extends javax.swing.JInternalFrame {
                 .addContainerGap(34, Short.MAX_VALUE))
         );
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 2, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 51, 204));
-        jLabel1.setText("Configuração de Funcionamento do Sistema");
+        lblTiituloConfiguracao.setFont(new java.awt.Font("Tahoma", 2, 18)); // NOI18N
+        lblTiituloConfiguracao.setForeground(new java.awt.Color(0, 51, 204));
+        lblTiituloConfiguracao.setText("Configuração de Funcionamento do Sistema");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 51, 204));
@@ -291,7 +291,7 @@ public class TelaConfig extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(155, 155, 155)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(lblTiituloConfiguracao, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(144, 144, 144)
                                 .addComponent(lblInfor, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -306,7 +306,7 @@ public class TelaConfig extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(lblTiituloConfiguracao)
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -408,7 +408,6 @@ public class TelaConfig extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnSalvarPadrao;
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -420,6 +419,7 @@ public class TelaConfig extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel lblInfor;
+    private javax.swing.JLabel lblTiituloConfiguracao;
     private javax.swing.JTextField txtLogin;
     private javax.swing.JPasswordField txtSenha;
     // End of variables declaration//GEN-END:variables

@@ -51,11 +51,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         desktop = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu5 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        menuAtendimento = new javax.swing.JMenuItem();
+        menuPainelPedido = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
+        menuCadastrarCliente = new javax.swing.JMenuItem();
+        btnEmpresa = new javax.swing.JMenu();
         menuFuncionamento = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu8 = new javax.swing.JMenu();
@@ -80,25 +80,25 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenu5.setText("Menu");
 
-        jMenuItem3.setText("Atendimento");
-        jMenu5.add(jMenuItem3);
+        menuAtendimento.setText("Atendimento");
+        jMenu5.add(menuAtendimento);
 
-        jMenuItem4.setText("Painel de Pedido");
-        jMenu5.add(jMenuItem4);
+        menuPainelPedido.setText("Painel de Pedido");
+        jMenu5.add(menuPainelPedido);
 
         jMenuBar1.add(jMenu5);
 
         jMenu2.setText("Cliente");
 
-        jMenuItem1.setText("Cadastrar Cliente");
-        jMenu2.add(jMenuItem1);
+        menuCadastrarCliente.setText("Cadastrar Cliente");
+        jMenu2.add(menuCadastrarCliente);
 
         jMenuBar1.add(jMenu2);
 
-        jMenu3.setText("Configurações");
-        jMenu3.addActionListener(new java.awt.event.ActionListener() {
+        btnEmpresa.setText("Configurações");
+        btnEmpresa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu3ActionPerformed(evt);
+                btnEmpresaActionPerformed(evt);
             }
         });
 
@@ -108,12 +108,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 menuFuncionamentoActionPerformed(evt);
             }
         });
-        jMenu3.add(menuFuncionamento);
+        btnEmpresa.add(menuFuncionamento);
 
         jMenuItem2.setText("Empresa");
-        jMenu3.add(jMenuItem2);
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        btnEmpresa.add(jMenuItem2);
 
-        jMenuBar1.add(jMenu3);
+        jMenuBar1.add(btnEmpresa);
 
         jMenu8.setText("Relatórios");
 
@@ -156,9 +161,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
         config.setVisible(true);
     }//GEN-LAST:event_menuFuncionamentoActionPerformed
 
-    private void jMenu3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu3ActionPerformed
+    private void btnEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpresaActionPerformed
+
+    
         
-    }//GEN-LAST:event_jMenu3ActionPerformed
+    }//GEN-LAST:event_btnEmpresaActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        
+        TelaEmpresa telaEmpresa = new TelaEmpresa();
+        desktop.add(telaEmpresa);
+        telaEmpresa.setVisible(true);
+        
+        
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -196,18 +212,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu btnEmpresa;
     private javax.swing.JDesktopPane desktop;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem menuAtendimento;
+    private javax.swing.JMenuItem menuCadastrarCliente;
     private javax.swing.JMenuItem menuFuncionamento;
+    private javax.swing.JMenuItem menuPainelPedido;
     // End of variables declaration//GEN-END:variables
 }

@@ -23,12 +23,12 @@ public class DAOEmpresa implements InterfaceEmpresa{
 
     
     /**
-     * METODO USADO PARA INSERIR EMPRESA NO BANCO DE DADOS
+     * METODO USADO PARA INSERIR EMPRESA NO BANCO DE DADOS   (NÃO UTILIZADO PARA ESTÁ VERSÃO DO SISTEMA)
      * @param empresa OBJETO A SER INSERIDO NO BANCO
      * @throws DAOException
      * @throws SQLException 
      */
-    @Override
+   /* @Override
     public void inserir(Empresa empresa) throws DAOException, SQLException {
         
         Connection con = Conexao.getInstance().getConnection();
@@ -56,7 +56,7 @@ public class DAOEmpresa implements InterfaceEmpresa{
            Conexao.closeConnection(con, pstm); 
         }
         
-    }
+    }*/
 
     /**
      * METODO USADO PARA ALTERAR EMPRESA NO BANCO DE DADOS
@@ -69,17 +69,18 @@ public class DAOEmpresa implements InterfaceEmpresa{
         
         Connection con = Conexao.getInstance().getConnection();
         
-        String sql = "UPDATE Empresa SET RazaoSocial = ?,Logradouro = ?,Numero = ?,Complemento = ?,Telefone = ?,Telefone2 =? WHERE CNPJ = ?";
+        String sql = "UPDATE Empresa SET RazaoSocial = ?,CNPJ = ?,Logradouro = ?,Numero = ?,Complemento = ?,Telefone = ?,Telefone2 = ? WHERE Cod_Empresa = ?";
         
         PreparedStatement pstm;
         pstm = con.prepareStatement(sql);
         pstm.setString(1,empresa.getRazaoSocial());
-        pstm.setString(2,empresa.getLogradouro());
-        pstm.setString(3,empresa.getNumero());
-        pstm.setString(4,empresa.getComplemento());
-        pstm.setString(5,empresa.getTelefone());
-        pstm.setString(6,empresa.getTelefone2());
-        pstm.setString(7,empresa.getCnpj());
+        pstm.setString(2,empresa.getCnpj());
+        pstm.setString(3,empresa.getLogradouro());
+        pstm.setString(4,empresa.getNumero());
+        pstm.setString(5,empresa.getComplemento());
+        pstm.setString(6,empresa.getTelefone());
+        pstm.setString(7,empresa.getTelefone2());
+        pstm.setInt(8,1);
         try{
          
         pstm.executeUpdate();
@@ -94,12 +95,12 @@ public class DAOEmpresa implements InterfaceEmpresa{
     }
 
     /**
-     * METODO USADO PARA EXCLUIR EMPRESA
+     * METODO USADO PARA EXCLUIR EMPRESA  (NÃO UTILIZADO PARA ESTÁ VERSÃO DO SISTEMA)
      * @param empresa OBJETO A SER EXCLUIDO
      * @throws DAOException
      * @throws SQLException 
      */
-    @Override
+   /* @Override
     public void excluir(Empresa empresa) throws DAOException, SQLException {
         
         Connection con = Conexao.getInstance().getConnection();
@@ -125,7 +126,7 @@ public class DAOEmpresa implements InterfaceEmpresa{
         } 
         
         
-    }
+    }*/
 
     /**
      * METODO USADO PARA LISTAR OS DADOS DA EMPRESA NO BANCO
@@ -150,7 +151,7 @@ public class DAOEmpresa implements InterfaceEmpresa{
         try{
         rs = pstm.executeQuery();
         
-        while(rs.next()){
+        if(rs.next()){
             empresa.setRazaoSocial(rs.getString("RazaoSocial"));
             empresa.setCnpj(rs.getString("CNPJ"));
             empresa.setLogradouro(rs.getString("Logradouro"));

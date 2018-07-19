@@ -10,7 +10,10 @@ package delivery.basica;
  * @author Gabriel Augusto
  */
 public class Empresa {
+
     
+    
+    private int codEmpresa;
     private String razaoSocial;
     private String cnpj;
     private String cep;
@@ -19,6 +22,14 @@ public class Empresa {
     private String complemento;
     private String telefone;
     private String telefone2;
+    
+    public int getCodEmpresa() {
+        return codEmpresa;
+    }
+
+    public void setCodEmpresa(int codEmpresa) {
+        this.codEmpresa = codEmpresa;
+    }
 
     public String getRazaoSocial() {
         return razaoSocial;

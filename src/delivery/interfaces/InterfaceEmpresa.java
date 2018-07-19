@@ -15,8 +15,8 @@ import java.util.ArrayList;
  * @author Gabriel Augusto
  */
 public interface InterfaceEmpresa {
-    public void inserir(Empresa empresa)throws DAOException, SQLException;
+    //public void inserir(Empresa empresa)throws DAOException, SQLException;
     public void alterar(Empresa empresa)throws DAOException, SQLException;
-    public void excluir(Empresa empresa)throws DAOException, SQLException;
+    //public void excluir(Empresa empresa)throws DAOException, SQLException;
     public ArrayList<Empresa> listar() throws DAOException, SQLException;
 }
