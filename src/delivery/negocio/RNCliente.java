@@ -138,9 +138,11 @@ public class RNCliente implements InterfaceCliente{
             throw new DAOException("Caracter de Telefone3 Excedido : 50");
         }
         
+        //O CLIENTE PODE NÃO SABER O CEP
+        /*
         if(cliente.getCep().trim().isEmpty() || cliente.getCep().equals("")){
             throw new DAOException ("CEP não pode ser branca ou nulo");
-        }
+        }*/
         
         if(cliente.getCep().length() > 8){
            throw new DAOException ("Caracter de CEP Excedido : 8");
