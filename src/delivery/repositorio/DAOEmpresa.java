@@ -69,18 +69,20 @@ public class DAOEmpresa implements InterfaceEmpresa{
         
         Connection con = Conexao.getInstance().getConnection();
         
-        String sql = "UPDATE Empresa SET RazaoSocial = ?,CNPJ = ?,Logradouro = ?,Numero = ?,Complemento = ?,Telefone = ?,Telefone2 = ? WHERE Cod_Empresa = ?";
+        String sql = "UPDATE Empresa SET RazaoSocial = ?,CNPJ = ?,CEP = ?,Logradouro = ?,Numero = ?,Complemento = ?,Telefone = ?,Telefone2 = ? WHERE Cod_Empresa = ?";
         
         PreparedStatement pstm;
         pstm = con.prepareStatement(sql);
         pstm.setString(1,empresa.getRazaoSocial());
         pstm.setString(2,empresa.getCnpj());
-        pstm.setString(3,empresa.getLogradouro());
-        pstm.setString(4,empresa.getNumero());
-        pstm.setString(5,empresa.getComplemento());
-        pstm.setString(6,empresa.getTelefone());
-        pstm.setString(7,empresa.getTelefone2());
-        pstm.setInt(8,1);
+        pstm.setString(3, empresa.getCep());
+        pstm.setString(4,empresa.getLogradouro());
+        pstm.setString(5,empresa.getNumero());
+        pstm.setString(6,empresa.getComplemento());
+        pstm.setString(7,empresa.getTelefone());
+        pstm.setString(8,empresa.getTelefone2());
+        
+        pstm.setInt(9,1);
         try{
          
         pstm.executeUpdate();
@@ -134,15 +136,14 @@ public class DAOEmpresa implements InterfaceEmpresa{
      * @throws DAOException
      * @throws SQLException 
      */
-    @Override
-    public ArrayList<Empresa> listar() throws DAOException, SQLException {
+    
+    public Empresa listar() throws DAOException, SQLException {
         
-        ArrayList<Empresa> lista = new ArrayList<>();
         Empresa empresa = new Empresa();
         
         Connection con = Conexao.getInstance().getConnection();
         
-        String sql = "SELECT RazaoSocial,CNPJ,Logradouro,Numero,Complemento,Telefone,Telefone2 FROM Empresa";
+        String sql = "SELECT RazaoSocial,CNPJ,CEP,Logradouro,Numero,Complemento,Telefone,Telefone2 FROM Empresa";
         
         PreparedStatement pstm;
         pstm = con.prepareStatement(sql);
@@ -154,12 +155,13 @@ public class DAOEmpresa implements InterfaceEmpresa{
         if(rs.next()){
             empresa.setRazaoSocial(rs.getString("RazaoSocial"));
             empresa.setCnpj(rs.getString("CNPJ"));
+            empresa.setCep(rs.getString("CEP"));
             empresa.setLogradouro(rs.getString("Logradouro"));
             empresa.setNumero(rs.getString("Numero"));
             empresa.setComplemento(rs.getString("Complemento"));
             empresa.setTelefone(rs.getString("Telefone"));
             empresa.setTelefone2(rs.getString("Telefone2"));
-            lista.add(empresa);
+            
         }
         }
         catch(SQLException ex){
@@ -168,7 +170,7 @@ public class DAOEmpresa implements InterfaceEmpresa{
         finally{
             Conexao.closeConnection(con, pstm, rs);
         }
-        return lista;
+        return empresa;
         
     }
     
