@@ -9,6 +9,7 @@ import delivery.basica.Login;
 import delivery.negocio.RNLogin;
 import delivery.util.DAOException;
 import delivery.util.MD5;
+import java.awt.event.KeyEvent;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -66,6 +67,15 @@ public class TelaLogin extends javax.swing.JFrame {
             }
         });
 
+        txtSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtSenhaKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSenhaKeyTyped(evt);
+            }
+        });
+
         jLabel1.setText("Login:");
 
         jLabel2.setText("Senha:");
@@ -117,8 +127,8 @@ public class TelaLogin extends javax.swing.JFrame {
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
         
-      login.setUsuario(txtLogin.getText());
-      login.setSenha(String.valueOf(txtSenha.getPassword()));
+       login.setUsuario(txtLogin.getText());
+        login.setSenha(String.valueOf(txtSenha.getPassword()));
         
         try {
             TelaPrincipal telaPrincipal = new TelaPrincipal(rn.logar(login));
@@ -129,6 +139,19 @@ public class TelaLogin extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_btnEntrarActionPerformed
+
+    
+    private void txtSenhaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSenhaKeyTyped
+
+    private void txtSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyPressed
+        
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            btnEntrar.doClick();
+        }
+        
+    }//GEN-LAST:event_txtSenhaKeyPressed
 
     
     /**

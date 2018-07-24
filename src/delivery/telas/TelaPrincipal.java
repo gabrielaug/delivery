@@ -7,6 +7,7 @@ package delivery.telas;
 
 
 import delivery.basica.Login;
+import delivery.repositorio.DAOConfig;
 import delivery.util.DAOException;
 import java.awt.Dimension;
 import java.sql.SQLException;
@@ -20,6 +21,7 @@ import java.util.logging.Logger;
 public class TelaPrincipal extends javax.swing.JFrame {
     
     Login login;
+    DAOConfig config;
     /**
      * Creates new form TelaPrincipal
      */
@@ -35,10 +37,25 @@ public class TelaPrincipal extends javax.swing.JFrame {
      this.login.setNome(login.getNome());
      this.login.setUsuario(login.getUsuario());
      this.login.setNvAcesso(login.getNvAcesso());
+     config = new DAOConfig();
+     inicio();
      
      
     }
 
+    public void inicio(){
+        
+        try {
+            if(config.verificarConfig().getSnTelaPedido().equalsIgnoreCase("N")){
+             menuPainelPedido.setEnabled(false);
+            }
+        } catch (DAOException | SQLException ex) {
+            
+        }
+        
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
