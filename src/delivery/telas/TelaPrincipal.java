@@ -95,6 +95,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGap(0, 594, Short.MAX_VALUE)
         );
 
+        jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/delivery/util/imagens/Menu.png"))); // NOI18N
         jMenu5.setText("Menu");
 
         menuAtendimento.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_MASK));
