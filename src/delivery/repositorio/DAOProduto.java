@@ -8,6 +8,7 @@ package delivery.repositorio;
 import delivery.basica.Produto;
 import delivery.interfaces.InterfaceProduto;
 import delivery.util.Conexao;
+import delivery.util.DAOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,7 +27,7 @@ public class DAOProduto implements InterfaceProduto {
      * @throws SQLException 
      */
     @Override
-    public void inserir(Produto produto) throws Exception, SQLException {
+    public void inserir(Produto produto) throws DAOException, SQLException {
     
         Connection con = Conexao.getInstance().getConnection();
         
@@ -57,7 +58,7 @@ public class DAOProduto implements InterfaceProduto {
      * @throws SQLException 
      */
     @Override
-    public void alterar(Produto produto) throws Exception, SQLException {
+    public void alterar(Produto produto) throws DAOException, SQLException {
     
         Connection con = Conexao.getInstance().getConnection();
         
@@ -89,7 +90,7 @@ public class DAOProduto implements InterfaceProduto {
      * @throws SQLException 
      */
     @Override
-    public void excluir(Produto produto) throws Exception, SQLException {
+    public void excluir(Produto produto) throws DAOException, SQLException {
     
         Connection con = Conexao.getInstance().getConnection();
         
@@ -120,7 +121,7 @@ public class DAOProduto implements InterfaceProduto {
      * @throws SQLException 
      */
     @Override
-    public ArrayList<Produto> listar() throws Exception, SQLException {
+    public ArrayList<Produto> listar() throws DAOException, SQLException {
         
         ArrayList<Produto> lista = new ArrayList<>();
         Produto produto = new Produto(); 
@@ -151,6 +152,42 @@ public class DAOProduto implements InterfaceProduto {
         }
         return lista;
     }
+    
+    /**
+     * METODO USADO PARA CONSULTAR SE O PRODUTO JÁ EXISTE NO BANCO DE DADOS
+     * @param produto OBJETO A SER CONSULTADO
+     * @return RETORNA TRUE CASO EXISTA NO BANCO
+     * @throws DAOException
+     * @throws SQLException 
+     */
+    public boolean consultarProdutoExiste(Produto produto) throws DAOException, SQLException {
+        
+        
+        Connection con = Conexao.getInstance().getConnection();
+        
+        String sql = "SELECT Cod_Produto, Descricao, Valor FROM Produto WHERE Cod_Produto = ?";
+        
+        PreparedStatement pstm;
+        pstm = con.prepareStatement(sql);
+        pstm.setInt(1,produto.getCodProduto());
+        ResultSet rs = null;
+        boolean retorno = false;
+        try{
+        rs = pstm.executeQuery();
+        
+            if(rs.next()){
+                return retorno = true;
+            }
+        }
+        catch(SQLException ex){
+            
+        }
+        finally{
+            Conexao.closeConnection(con, pstm, rs);
+        }
+        return retorno;
+    }
+    
        
     
 }
