@@ -102,7 +102,7 @@ public class DAOProduto implements InterfaceProduto {
         
         try{
          
-        pstm.executeUpdate();
+        pstm.execute();
             
         }
         catch(SQLException ex){
@@ -124,7 +124,8 @@ public class DAOProduto implements InterfaceProduto {
     public ArrayList<Produto> listar() throws DAOException, SQLException {
         
         ArrayList<Produto> lista = new ArrayList<>();
-        Produto produto = new Produto(); 
+        
+        
        
        Connection con = Conexao.getInstance().getConnection();
         
@@ -138,6 +139,9 @@ public class DAOProduto implements InterfaceProduto {
         rs = pstm.executeQuery();
         
         while(rs.next()){
+            
+            Produto produto = new Produto(); 
+            
             produto.setCodProduto(rs.getInt("Cod_Produto"));
             produto.setDescricao(rs.getString("Descricao"));
             produto.setValor(rs.getDouble("Valor"));

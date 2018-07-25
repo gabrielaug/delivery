@@ -37,6 +37,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
      this.login.setNvAcesso(login.getNvAcesso());
      config = new DAOConfig();
      inicio();
+     jMenuItem2.setVisible(false); // FUTURA IMPLEMENTAÇÃO VERSÃO 2.0
      
     }
        
@@ -133,8 +134,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/delivery/util/imagens/Produto.png"))); // NOI18N
         jMenu1.setText("Produto");
 
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_MASK));
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/delivery/util/imagens/AdicionarProduto.png"))); // NOI18N
-        jMenuItem1.setText("Cadastro de Produto");
+        jMenuItem1.setText("Cadastro e Pesquisa de Produto");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem1);
 
         jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/delivery/util/imagens/ListarProdutos.png"))); // NOI18N
@@ -238,6 +245,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void menuAtendimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAtendimentoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_menuAtendimentoActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        TelaCadProduto cadprod = new TelaCadProduto();
+        desktop.add(cadprod);
+        cadprod.setPosicao();
+        cadprod.setVisible(true);
+       
+        
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments

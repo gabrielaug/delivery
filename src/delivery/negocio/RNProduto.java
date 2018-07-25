@@ -99,7 +99,9 @@ public class RNProduto implements InterfaceProduto{
      */
     @Override
     public ArrayList<Produto> listar() throws DAOException, SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        return dao.listar();
+        
     }
     
     
