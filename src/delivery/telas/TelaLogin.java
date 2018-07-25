@@ -52,6 +52,7 @@ public class TelaLogin extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Delivery v 1.0");
         setResizable(false);
 
         btnEntrar.setText("Entrar");
