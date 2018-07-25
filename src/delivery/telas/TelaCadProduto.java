@@ -7,6 +7,7 @@ package delivery.telas;
 
 import delivery.basica.Produto;
 import delivery.negocio.RNProduto;
+import delivery.util.CurrencyTableCellRenderer;
 import delivery.util.DAOException;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
@@ -34,7 +35,7 @@ public class TelaCadProduto extends javax.swing.JInternalFrame {
         produto = new Produto();
         lista();
         
-        
+               
     }
     public void setPosicao() {
     Dimension d = this.getDesktopPane().getSize();
@@ -65,6 +66,7 @@ public class TelaCadProduto extends javax.swing.JInternalFrame {
         btnAtualizarProduto = new javax.swing.JButton();
         btnFechar = new javax.swing.JButton();
         btnRestCadastro = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setResizable(true);
         setMinimumSize(new java.awt.Dimension(725, 499));
@@ -93,7 +95,7 @@ public class TelaCadProduto extends javax.swing.JInternalFrame {
                 {null, null, null}
             },
             new String [] {
-                "Cod do Produto", "Nome do Produto", "Valor"
+                "Código", "Nome do Produto", "Valor"
             }
         ) {
             Class[] types = new Class [] {
@@ -118,8 +120,12 @@ public class TelaCadProduto extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tbProduto);
         if (tbProduto.getColumnModel().getColumnCount() > 0) {
-            tbProduto.getColumnModel().getColumn(0).setResizable(false);
-            tbProduto.getColumnModel().getColumn(2).setResizable(false);
+            tbProduto.getColumnModel().getColumn(0).setMinWidth(50);
+            tbProduto.getColumnModel().getColumn(0).setPreferredWidth(50);
+            tbProduto.getColumnModel().getColumn(0).setMaxWidth(50);
+            tbProduto.getColumnModel().getColumn(2).setMinWidth(80);
+            tbProduto.getColumnModel().getColumn(2).setPreferredWidth(80);
+            tbProduto.getColumnModel().getColumn(2).setMaxWidth(80);
         }
 
         btnAlterar.setText("Alterar Produto");
@@ -157,13 +163,15 @@ public class TelaCadProduto extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel1.setText("R$");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 699, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -171,15 +179,17 @@ public class TelaCadProduto extends javax.swing.JInternalFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(lblNomeProduto)
                                     .addComponent(lblValorProduto))
-                                .addGap(44, 44, 44)
+                                .addGap(27, 27, 27)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtDescricaoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtValorProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtValorProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
                                         .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(btnRestCadastro))
-                                    .addComponent(txtDescricaoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(btnRestCadastro))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(31, 31, 31)
                                 .addComponent(lblCadastroProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -189,7 +199,7 @@ public class TelaCadProduto extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 674, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 15, Short.MAX_VALUE)))
+                        .addGap(6, 6, 6)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -216,7 +226,8 @@ public class TelaCadProduto extends javax.swing.JInternalFrame {
                     .addComponent(lblValorProduto)
                     .addComponent(btnCadastrar)
                     .addComponent(txtValorProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRestCadastro))
+                    .addComponent(btnRestCadastro)
+                    .addComponent(jLabel1))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -229,7 +240,7 @@ public class TelaCadProduto extends javax.swing.JInternalFrame {
                     .addComponent(btnFechar)
                     .addComponent(btnAlterar)
                     .addComponent(btnAtualizarProduto))
-                .addGap(0, 12, Short.MAX_VALUE))
+                .addGap(0, 20, Short.MAX_VALUE))
         );
 
         pack();
@@ -241,7 +252,8 @@ public class TelaCadProduto extends javax.swing.JInternalFrame {
         
         try {
             rnProd.excluir(produto);
-            JOptionPane.showMessageDialog(this,"Produto Excluído, Por favor Atualize a Lista!");
+            JOptionPane.showMessageDialog(this,"Produto Excluído!");
+            lista(); //CHAMADO PARA EVITAR BUG DE ALTERAR PRODUTO NA TABELA QUE NAO FOI ATUALIZADA E CONTEM DADOS ANTIGOS PODENDO CAUSAR PROBLEMAS NO SISTEMA
         } catch (DAOException | SQLException ex) {
             
         }
@@ -256,8 +268,9 @@ public class TelaCadProduto extends javax.swing.JInternalFrame {
       RNProduto rnProd = new RNProduto();
       System.out.println(txtValorProduto.getText());
       produto.setDescricao(txtDescricaoProduto.getText().toUpperCase());
-      produto.setValor(Double.valueOf(txtValorProduto.getText()));
-        
+      double valor = Double.parseDouble(txtValorProduto.getText().replace(',', '.')); // converte caso tenha virgula em ponto
+      produto.setValor(valor);
+         
         try {
             rnProd.inserir(produto);
             JOptionPane.showMessageDialog(this,"Produto Cadastrado!");
@@ -269,7 +282,7 @@ public class TelaCadProduto extends javax.swing.JInternalFrame {
           
        
     }//GEN-LAST:event_btnCadastrarActionPerformed
-
+  
     private void tbProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbProdutoMouseClicked
        
         
@@ -310,7 +323,8 @@ public class TelaCadProduto extends javax.swing.JInternalFrame {
         try {
             
             produto.setDescricao(txtDescricaoProduto.getText().toUpperCase());
-            produto.setValor(Double.valueOf(txtValorProduto.getText()));
+            double valor = Double.parseDouble(txtValorProduto.getText().replace(',', '.')); // converte caso tenha virgula em ponto
+            produto.setValor(valor);
             rnProd.alterar(produto);
             JOptionPane.showMessageDialog(this,"Produto Alterado com Sucesso, Por favor Atualize a Lista!");
         } catch (DAOException | SQLException ex) {
@@ -338,7 +352,7 @@ public class TelaCadProduto extends javax.swing.JInternalFrame {
         } catch (Exception ex) {
             
         }
-        
+        tbProduto.getColumnModel().getColumn(2).setCellRenderer(new CurrencyTableCellRenderer()); // COLOCA COLUNA VALOR EM REAL
        modelo = (DefaultTableModel) tbProduto.getModel(); // CHECA O JTABLE PARA RECEBER OS DADOS
         if(modelo.getRowCount() > 0){  //se existir linha 
             modelo.setRowCount(0); // apaga todas as linhas
@@ -356,6 +370,7 @@ public class TelaCadProduto extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnFechar;
     private javax.swing.JButton btnRestCadastro;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblCadastroProduto;

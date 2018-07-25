@@ -27,7 +27,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jSeparator1" alignment="1" max="32767" attributes="0"/>
+                  <Component id="jSeparator1" alignment="1" pref="699" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
@@ -36,16 +36,18 @@
                                   <Component id="lblNomeProduto" min="-2" max="-2" attributes="0"/>
                                   <Component id="lblValorProduto" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="txtDescricaoProduto" min="-2" pref="431" max="-2" attributes="0"/>
                                   <Group type="102" attributes="0">
-                                      <Component id="txtValorProduto" min="-2" pref="133" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="txtValorProduto" min="-2" pref="121" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="btnCadastrar" min="-2" pref="124" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="btnRestCadastro" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="txtDescricaoProduto" min="-2" pref="431" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
@@ -61,7 +63,7 @@
                               <Component id="jScrollPane1" min="-2" pref="674" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="0" pref="15" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -95,6 +97,7 @@
                   <Component id="btnCadastrar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtValorProduto" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnRestCadastro" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
@@ -109,7 +112,7 @@
                   <Component id="btnAlterar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnAtualizarProduto" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="0" pref="12" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="20" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -170,14 +173,14 @@
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="3" rowCount="1">
-                <Column editable="false" title="Cod do Produto" type="java.lang.Integer"/>
+                <Column editable="false" title="C&#xf3;digo" type="java.lang.Integer"/>
                 <Column editable="false" title="Nome do Produto" type="java.lang.String"/>
                 <Column editable="false" title="Valor" type="java.lang.Double"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                <Column maxWidth="50" minWidth="50" prefWidth="50" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>
@@ -187,7 +190,7 @@
                   <Editor/>
                   <Renderer/>
                 </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                <Column maxWidth="80" minWidth="80" prefWidth="80" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>
@@ -245,6 +248,11 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRestCadastroActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="R$"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
