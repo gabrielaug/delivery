@@ -143,7 +143,7 @@ public class DAOCliente implements InterfaceCliente{
     public ArrayList<Cliente> listar() throws DAOException, SQLException {
         
     ArrayList<Cliente> lista = new ArrayList<>();
-        Cliente cliente = new Cliente();
+        
         
         Connection con = Conexao.getInstance().getConnection();
         
@@ -157,6 +157,7 @@ public class DAOCliente implements InterfaceCliente{
         rs = pstm.executeQuery();
         
         while(rs.next()){
+            Cliente cliente = new Cliente();
             cliente.setNome(rs.getString("Nome"));
             cliente.setCpf(rs.getString("CPF"));
             cliente.setTelefone(rs.getString("Telefone"));

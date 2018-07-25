@@ -125,7 +125,7 @@ public class DAOPedido implements InterfacePedido{
     public ArrayList<Pedido> listar() throws DAOException, SQLException {
      
         ArrayList<Pedido> lista = new ArrayList<>();
-        Pedido pedido = new Pedido();
+        
         
         Connection con = Conexao.getInstance().getConnection();
         
@@ -139,6 +139,7 @@ public class DAOPedido implements InterfacePedido{
         rs = pstm.executeQuery();
         
         while(rs.next()){
+            Pedido pedido = new Pedido();
             pedido.setCodPedido(rs.getInt("Cod_Pedido"));
             pedido.getCliente().setTelefone(rs.getString("Telefone"));
             pedido.setValorTotal(rs.getDouble("Valor_Total"));

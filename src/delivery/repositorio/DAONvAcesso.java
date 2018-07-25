@@ -126,7 +126,7 @@ public class DAONvAcesso implements InterfaceNvAcesso{
     public ArrayList<NvAcesso> listar() throws DAOException, SQLException {
         
         ArrayList<NvAcesso> lista = new ArrayList<>();
-        NvAcesso nvAcesso = new NvAcesso();
+        
         
         Connection con = Conexao.getInstance().getConnection();
         
@@ -140,6 +140,7 @@ public class DAONvAcesso implements InterfaceNvAcesso{
         rs = pstm.executeQuery();
         
         while(rs.next()){
+            NvAcesso nvAcesso = new NvAcesso();
             nvAcesso.setAcesso(rs.getInt("Acesso"));
             nvAcesso.setDescricao(rs.getString("Descricao"));
             lista.add(nvAcesso);

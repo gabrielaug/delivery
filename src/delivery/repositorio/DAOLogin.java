@@ -134,7 +134,7 @@ public class DAOLogin implements InterfaceLogin{
     public ArrayList<Login> listar() throws DAOException, SQLException {
         
         ArrayList<Login> lista = new ArrayList<>();
-        Login login = new Login();
+        
         
         Connection con = Conexao.getInstance().getConnection();
         
@@ -148,6 +148,7 @@ public class DAOLogin implements InterfaceLogin{
         rs = pstm.executeQuery();
         
         while(rs.next()){
+            Login login = new Login();
             login.setUsuario(rs.getString("Usuario"));
             login.setNome(rs.getString("Nome"));
             login.setSenha(rs.getString("Senha"));
