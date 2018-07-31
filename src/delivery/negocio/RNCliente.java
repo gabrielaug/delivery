@@ -45,15 +45,16 @@ public class RNCliente implements InterfaceCliente{
         validarAtributos(cliente);
         
         if(config.verificarConfig().getSnCpf().equalsIgnoreCase("S")){
+  
             try {
-                obrigatorioCPF(cliente);
+                if(obrigatorioCPF(cliente)){
+                  dao.inserir(cliente);  
+                }
             } catch (Exception ex) {
                 
             }
         }
         
-        
-        dao.inserir(cliente);
     }
 
     /**
@@ -72,7 +73,7 @@ public class RNCliente implements InterfaceCliente{
             
             if(config.verificarConfig().getSnCpf().equalsIgnoreCase("S")){
             try {
-                obrigatorioCPF(cliente);
+                obrigatorioCPF(cliente);     
             } catch (Exception ex) {
                 
             }
