@@ -11,6 +11,8 @@ import delivery.repositorio.DAOConfig;
 import delivery.util.DAOException;
 import java.awt.Dimension;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -123,6 +125,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menuCadastrarCliente.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK));
         menuCadastrarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/delivery/util/imagens/CadCliente.png"))); // NOI18N
         menuCadastrarCliente.setText("Cadastrar Cliente");
+        menuCadastrarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuCadastrarClienteActionPerformed(evt);
+            }
+        });
         jMenu2.add(menuCadastrarCliente);
 
         jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.ALT_MASK));
@@ -256,6 +263,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
        
         
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void menuCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCadastrarClienteActionPerformed
+        
+        TelaCadCliente telaCadCliente = new TelaCadCliente();
+        desktop.add(telaCadCliente);
+        telaCadCliente.setPosicao();
+        try {
+            telaCadCliente.confgCpf();
+        } catch (DAOException | SQLException ex) {
+            
+        }
+        telaCadCliente.setVisible(true);
+        
+        
+    }//GEN-LAST:event_menuCadastrarClienteActionPerformed
 
     /**
      * @param args the command line arguments

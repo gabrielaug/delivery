@@ -43,18 +43,7 @@ public class RNCliente implements InterfaceCliente{
     public void inserir(Cliente cliente) throws DAOException, SQLException {
         
         validarAtributos(cliente);
-        
-        if(config.verificarConfig().getSnCpf().equalsIgnoreCase("S")){
-  
-            try {
-                if(obrigatorioCPF(cliente)){
-                  dao.inserir(cliente);  
-                }
-            } catch (Exception ex) {
-                
-            }
-        }
-        
+        dao.inserir(cliente);
     }
 
     /**
@@ -70,14 +59,6 @@ public class RNCliente implements InterfaceCliente{
             throw new DAOException("Cliente não existe");
         }
         else{
-            
-            if(config.verificarConfig().getSnCpf().equalsIgnoreCase("S")){
-            try {
-                obrigatorioCPF(cliente);     
-            } catch (Exception ex) {
-                
-            }
-        }
             
           dao.alterar(cliente);  
         }

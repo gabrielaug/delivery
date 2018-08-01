@@ -218,6 +218,11 @@ public class TelaCadCliente extends javax.swing.JInternalFrame {
                 btnCadastrarActionPerformed(evt);
             }
         });
+        btnCadastrar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnCadastrarKeyPressed(evt);
+            }
+        });
 
         btnSair.setText("Sair");
         btnSair.addActionListener(new java.awt.event.ActionListener() {
@@ -393,10 +398,11 @@ public class TelaCadCliente extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(19, 19, 19))
         );
 
@@ -557,25 +563,67 @@ public class TelaCadCliente extends javax.swing.JInternalFrame {
             inserirCliente(cliente);
         } catch (DAOException | SQLException ex) {
             
-        }
+        } catch (Exception ex) {
+            
+        } 
+           
         
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
-    public void inserirCliente(Cliente cliente) throws DAOException, SQLException{
+    private void btnCadastrarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnCadastrarKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            btnCadastrar.doClick();
+        }
+    }//GEN-LAST:event_btnCadastrarKeyPressed
+
+    public void inserirCliente(Cliente cliente) throws DAOException, SQLException, Exception{
         RNCliente rnCliente = new RNCliente(); 
         
-        if(config.getSnCpf().equalsIgnoreCase("S")){
-            try{
+        try{
+        
+            if(config.getSnCpf().equalsIgnoreCase("S")){
+                if(cliente.getCpf().trim().isEmpty() || cliente.getCpf().equalsIgnoreCase("")){
+                 throw new DAOException("CPF não pode ser nulo ou branco");
+             }   
+             
+                if(rnCliente.obrigatorioCPF(cliente)){
+                    rnCliente.inserir(cliente);
+                    JOptionPane.showMessageDialog(this,"Cadastrado com Sucesso.","",JOptionPane.INFORMATION_MESSAGE);
+                } 
+            
+            }   
+            else{
+            rnCliente.inserir(cliente);
+            JOptionPane.showMessageDialog(this,"Cadastrado com Sucesso.","",JOptionPane.INFORMATION_MESSAGE);
+            }
+            
+        }catch (DAOException ex){
+            
+            
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+       /* if(config.getSnCpf().equalsIgnoreCase("S")){
+            
             if(cliente.getCpf().trim().isEmpty()){
                 throw new DAOException("CPF não pode ser nulo ou branco");
             }
-            }
-            catch(DAOException ex ){
-                
-            }
-        }
+           
+            
+           rnCliente.inserir(cliente);
+           JOptionPane.showMessageDialog(this,"Cadastrado com Sucesso.","",JOptionPane.INFORMATION_MESSAGE); 
+        }else{
             rnCliente.inserir(cliente);
-              JOptionPane.showMessageDialog(this,"Cadastrado com Sucesso.","",JOptionPane.INFORMATION_MESSAGE);    
+            JOptionPane.showMessageDialog(this,"Cadastrado com Sucesso.","",JOptionPane.INFORMATION_MESSAGE);
+        }
+           */    
     }
     
     
