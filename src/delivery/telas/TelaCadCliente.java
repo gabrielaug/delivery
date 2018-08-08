@@ -8,6 +8,7 @@ package delivery.telas;
 import delivery.basica.Cliente;
 import delivery.basica.Config;
 import delivery.negocio.RNCliente;
+import delivery.repositorio.DAOCliente;
 import delivery.repositorio.DAOConfig;
 import delivery.util.BuscarCEP;
 import delivery.util.DAOException;
@@ -15,8 +16,6 @@ import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -27,12 +26,14 @@ public class TelaCadCliente extends javax.swing.JInternalFrame {
 
     DAOConfig dao;
     Config config;
+    Cliente cliente;
     /**
      * Creates new form TelaCadCliente
      */
     public TelaCadCliente() {
         initComponents();
         dao = new DAOConfig();
+        cliente = new Cliente();
         try {
             config = dao.verificarConfig();
         } catch (DAOException | SQLException ex) {
@@ -116,6 +117,11 @@ public class TelaCadCliente extends javax.swing.JInternalFrame {
 
         lblTelefone.setText("Telefone");
 
+        txtTelefone.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtTelefoneFocusLost(evt);
+            }
+        });
         txtTelefone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTelefoneActionPerformed(evt);
@@ -467,8 +473,8 @@ public class TelaCadCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtCpfKeyPressed
 
     private void txtTelefoneKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefoneKeyPressed
-        
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+
+      if(evt.getKeyCode() == KeyEvent.VK_ENTER){
             txtTelefone2.grabFocus();
         }
         
@@ -543,10 +549,11 @@ public class TelaCadCliente extends javax.swing.JInternalFrame {
         txtTelefone2.setText("");
         txtTelefone3.setText("");
         
+        
     }//GEN-LAST:event_btnLimparActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-      Cliente cliente = new Cliente();
+      DAOCliente daoCliente =  new DAOCliente();
       
       cliente.setNome(txtNome.getText());
       cliente.setCpf(txtCpf.getText());
@@ -560,13 +567,21 @@ public class TelaCadCliente extends javax.swing.JInternalFrame {
       cliente.setTelefone3(txtTelefone3.getText());
       
         try {
-            inserirCliente(cliente);
+            
+            if(!daoCliente.consultarClienteExistente(cliente)){
+              inserirCliente(cliente);  
+            }else{
+                txtTelefone.grabFocus();
+               throw new DAOException("Telefone já cadastrado."); 
+            }
+            
+            
         } catch (DAOException | SQLException ex) {
             
         } catch (Exception ex) {
             
         } 
-           
+
         
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
@@ -575,6 +590,10 @@ public class TelaCadCliente extends javax.swing.JInternalFrame {
             btnCadastrar.doClick();
         }
     }//GEN-LAST:event_btnCadastrarKeyPressed
+
+    private void txtTelefoneFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTelefoneFocusLost
+ 
+    }//GEN-LAST:event_txtTelefoneFocusLost
 
     public void inserirCliente(Cliente cliente) throws DAOException, SQLException, Exception{
         RNCliente rnCliente = new RNCliente(); 
