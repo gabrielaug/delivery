@@ -8,6 +8,8 @@ package delivery.telas;
 import delivery.basica.Cliente;
 import delivery.negocio.RNCliente;
 import java.awt.Dimension;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
@@ -19,6 +21,8 @@ import javax.swing.table.TableRowSorter;
  * @author gaugusto
  */
 public class TelaPesqCliente extends javax.swing.JInternalFrame {
+    
+    Cliente cliente;
 
     /**
      * Creates new form TelaPesqCliente
@@ -172,6 +176,16 @@ public class TelaPesqCliente extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbClienteMouseClicked(evt);
+            }
+        });
+        tbCliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tbClienteKeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbCliente);
         if (tbCliente.getColumnModel().getColumnCount() > 0) {
             tbCliente.getColumnModel().getColumn(0).setMinWidth(230);
@@ -240,7 +254,7 @@ public class TelaPesqCliente extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
-        dispose();
+        this.dispose();
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void txtNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyReleased
@@ -276,7 +290,45 @@ public class TelaPesqCliente extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_txtTelefoneKeyReleased
 
-   
+    private void tbClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbClienteKeyPressed
+  
+    }//GEN-LAST:event_tbClienteKeyPressed
+
+    private void tbClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbClienteMouseClicked
+        
+        if(evt.getClickCount() >= 2 ){
+            
+            tbCliente.addMouseListener(new MouseAdapter(){
+          private int linha;
+            
+            @Override  
+            public void mouseClicked(MouseEvent e) {    
+ 
+                        linha = tbCliente.getSelectedRow();
+                        cliente.setNome(String.valueOf(tbCliente.getValueAt(linha,0)));
+                        cliente.setCpf(String.valueOf(tbCliente.getValueAt(linha, 1)));
+                        cliente.setTelefone(String.valueOf(tbCliente.getValueAt(linha, 2)));
+                        cliente.setTelefone2(String.valueOf(tbCliente.getValueAt(linha, 3)));
+                        cliente.setTelefone3(String.valueOf(tbCliente.getValueAt(linha, 4)));
+                        cliente.setCep(String.valueOf(tbCliente.getValueAt(linha, 5)));
+                        cliente.setLogradouro(String.valueOf(tbCliente.getValueAt(linha, 6)));
+                        cliente.setNumero(String.valueOf(tbCliente.getValueAt(linha, 7)));
+                        cliente.setComplemento(String.valueOf(tbCliente.getValueAt(linha, 8)));
+                        cliente.setReferencia(String.valueOf(tbCliente.getValueAt(linha, 9)));
+                  
+           TelaAlterarCliente alteraCliente = new TelaAlterarCliente(cliente);
+           alteraCliente.setModal(true);
+           alteraCliente.setVisible(true);
+           alteraCliente = null;
+           
+            }  
+          
+            });
+        }
+        
+    }//GEN-LAST:event_tbClienteMouseClicked
+
+    
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
