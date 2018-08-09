@@ -538,6 +538,15 @@ public class TelaCadCliente extends javax.swing.JInternalFrame {
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
         
+        limparCliente();
+        
+        
+    }//GEN-LAST:event_btnLimparActionPerformed
+
+    /**
+     * LIMPA OS CAMPOS DO CADASTRO
+     */
+    public void limparCliente(){
         txtNome.setText("");
         txtCpf.setText("");
         txtCep.setText("");
@@ -548,20 +557,20 @@ public class TelaCadCliente extends javax.swing.JInternalFrame {
         txtTelefone.setText("");
         txtTelefone2.setText("");
         txtTelefone3.setText("");
-        
-        
-    }//GEN-LAST:event_btnLimparActionPerformed
-
+    }
+    
+    
+    
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
       DAOCliente daoCliente =  new DAOCliente();
       
-      cliente.setNome(txtNome.getText());
+      cliente.setNome(txtNome.getText().toUpperCase());
       cliente.setCpf(txtCpf.getText());
-      cliente.setCep(txtCep.getText());
-      cliente.setComplemento(txtComplemento.getText());
-      cliente.setLogradouro(txtLogradouro.getText());
-      cliente.setNumero(txtNumero.getText());
-      cliente.setReferencia(txtReferencia.getText());
+      cliente.setCep(txtCep.getText().toUpperCase());
+      cliente.setComplemento(txtComplemento.getText().toUpperCase());
+      cliente.setLogradouro(txtLogradouro.getText().toUpperCase());
+      cliente.setNumero(txtNumero.getText().toUpperCase());
+      cliente.setReferencia(txtReferencia.getText().toUpperCase());
       cliente.setTelefone(txtTelefone.getText());
       cliente.setTelefone2(txtTelefone2.getText());
       cliente.setTelefone3(txtTelefone3.getText());
@@ -608,12 +617,14 @@ public class TelaCadCliente extends javax.swing.JInternalFrame {
                 if(rnCliente.obrigatorioCPF(cliente)){
                     rnCliente.inserir(cliente);
                     JOptionPane.showMessageDialog(this,"Cadastrado com Sucesso.","",JOptionPane.INFORMATION_MESSAGE);
+                    limparCliente();
                 } 
             
             }   
             else{
             rnCliente.inserir(cliente);
             JOptionPane.showMessageDialog(this,"Cadastrado com Sucesso.","",JOptionPane.INFORMATION_MESSAGE);
+            limparCliente();
             }
             
         }catch (DAOException ex){
@@ -622,27 +633,7 @@ public class TelaCadCliente extends javax.swing.JInternalFrame {
         }
         
         
-        
-        
-        
-        
-        
-        
-        
-       /* if(config.getSnCpf().equalsIgnoreCase("S")){
-            
-            if(cliente.getCpf().trim().isEmpty()){
-                throw new DAOException("CPF não pode ser nulo ou branco");
-            }
-           
-            
-           rnCliente.inserir(cliente);
-           JOptionPane.showMessageDialog(this,"Cadastrado com Sucesso.","",JOptionPane.INFORMATION_MESSAGE); 
-        }else{
-            rnCliente.inserir(cliente);
-            JOptionPane.showMessageDialog(this,"Cadastrado com Sucesso.","",JOptionPane.INFORMATION_MESSAGE);
-        }
-           */    
+       
     }
     
     

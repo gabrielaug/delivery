@@ -9,10 +9,7 @@ package delivery.telas;
 import delivery.basica.Login;
 import delivery.repositorio.DAOConfig;
 import delivery.util.DAOException;
-import java.awt.Dimension;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -51,7 +48,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         } catch (DAOException | SQLException ex) {
             
-        }      
+        }
+        
+        if(login.getNvAcesso().getAcesso() != 1 && login.getNvAcesso().getAcesso() != 2){
+         btnEmpresa.setEnabled(false);
+        }
     }
         
     /**
@@ -135,6 +136,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.ALT_MASK));
         jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/delivery/util/imagens/PesquisarCliente.png"))); // NOI18N
         jMenuItem3.setText("Pesquisar Cliente");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem3);
 
         menuBarra.add(jMenu2);
@@ -278,6 +284,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_menuCadastrarClienteActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        
+        TelaPesqCliente telaPesqCliente = new TelaPesqCliente();
+        desktop.add(telaPesqCliente);
+        telaPesqCliente.setPosicao();
+        telaPesqCliente.setVisible(true);
+        
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments

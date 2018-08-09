@@ -290,12 +290,12 @@ public class TelaEmpresa extends javax.swing.JInternalFrame {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         
         
-        empresa.setRazaoSocial(txtRazaoSocial.getText());
+        empresa.setRazaoSocial(txtRazaoSocial.getText().toUpperCase());
         empresa.setCnpj(txtCnpj.getText());
         empresa.setCep(txtCep.getText());
-        empresa.setNumero(txtNumero.getText());
-        empresa.setLogradouro(txtLogradouro.getText());
-        empresa.setComplemento(txtComplemento.getText());
+        empresa.setNumero(txtNumero.getText().toUpperCase());
+        empresa.setLogradouro(txtLogradouro.getText().toUpperCase());
+        empresa.setComplemento(txtComplemento.getText().toUpperCase());
         empresa.setTelefone(txtTelefone.getText());
         empresa.setTelefone2(txtTelefone2.getText());
         
@@ -303,7 +303,7 @@ public class TelaEmpresa extends javax.swing.JInternalFrame {
             dao.alterar(empresa);
             lblMsg.setText("Gravado!");
         } catch (DAOException | SQLException ex) {
-            new Exception("Erro ao Alterar Empresa");
+            new Exception("Erro ao Configurar a Empresa");
         }
         
         
