@@ -30,7 +30,7 @@ public class TelaPesqCliente extends javax.swing.JInternalFrame {
     public TelaPesqCliente() {
         initComponents();
         lista();
-        
+        cliente = new Cliente();
          
 
 
@@ -61,8 +61,10 @@ public class TelaPesqCliente extends javax.swing.JInternalFrame {
             modelo.addRow(new Object[]{cliente.getNome(),
                                        cliente.getCpf(),
                                        cliente.getTelefone(),
-                                       cliente.getLogradouro(),
+                                       cliente.getTelefone2(),
+                                       cliente.getTelefone3(),
                                        cliente.getCep(),
+                                       cliente.getLogradouro(),
                                        cliente.getNumero(),
                                        cliente.getComplemento(),
                                        cliente.getReferencia()
@@ -152,20 +154,20 @@ public class TelaPesqCliente extends javax.swing.JInternalFrame {
 
         tbCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Nome", "CPF", "Telefone", "Logradouro", "CEP", "Numero", "Complemento", "Referencia"
+                "Nome", "CPF", "Telefone", "Telefone²", "Telefone³", "CEP", "Logradouro", "Numero", "Complemento", "Referencia"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -220,12 +222,11 @@ public class TelaPesqCliente extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(184, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(334, 334, 334))
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(51, 51, 51)))
+                .addContainerGap(371, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -247,7 +248,7 @@ public class TelaPesqCliente extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSair)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
 
         pack();
@@ -296,7 +297,7 @@ public class TelaPesqCliente extends javax.swing.JInternalFrame {
 
     private void tbClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbClienteMouseClicked
         
-        if(evt.getClickCount() >= 2 ){
+        if(evt.getClickCount() == 2 ){
             
             tbCliente.addMouseListener(new MouseAdapter(){
           private int linha;
@@ -318,6 +319,7 @@ public class TelaPesqCliente extends javax.swing.JInternalFrame {
                   
            TelaAlterarCliente alteraCliente = new TelaAlterarCliente(cliente);
            alteraCliente.setModal(true);
+           alteraCliente.setLocationRelativeTo(null);
            alteraCliente.setVisible(true);
            alteraCliente = null;
            
