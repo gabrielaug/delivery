@@ -276,7 +276,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         desktop.add(telaCadCliente);
         telaCadCliente.setPosicao();
         try {
-            telaCadCliente.confgCpf();
+            telaCadCliente.configCpf();
         } catch (DAOException | SQLException ex) {
             
         }

@@ -11,6 +11,7 @@ import delivery.negocio.RNCliente;
 import delivery.repositorio.DAOCliente;
 import delivery.repositorio.DAOConfig;
 import delivery.util.BuscarCEP;
+import delivery.util.CustomDocument;
 import delivery.util.DAOException;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
@@ -24,24 +25,42 @@ import javax.swing.JOptionPane;
  */
 public class TelaCadCliente extends javax.swing.JInternalFrame {
 
-    DAOConfig dao;
-    Config config;
-    Cliente cliente;
+    private DAOConfig dao;
+    private Config config;
+    private Cliente cliente;
     /**
-     * Creates new form TelaCadCliente
+     * CONSTRUTOR 
      */
     public TelaCadCliente() {
         initComponents();
+        caixaMaiuscula();
         dao = new DAOConfig();
         cliente = new Cliente();
         try {
-            config = dao.verificarConfig();
+            this.config = dao.verificarConfig();
         } catch (DAOException | SQLException ex) {
             
         }
     }
     
-    public void confgCpf()throws DAOException, SQLException{
+    /**
+     * COLOCA AS CAIXAS DE TEXTO'S MAIUSCULAS
+     */
+    private void caixaMaiuscula(){
+       
+      this.txtNome.setDocument(new CustomDocument());
+      this.txtComplemento.setDocument(new CustomDocument());
+      this.txtLogradouro.setDocument(new CustomDocument());
+      this.txtNumero.setDocument(new CustomDocument());
+      this.txtReferencia.setDocument(new CustomDocument()); 
+    }
+    
+    /**
+     * VERIFICA SE O CPF E OBRIGATORIO E COLOCA O INDICADOR DE OBRIGATORIO
+     * @throws DAOException
+     * @throws SQLException 
+     */
+    public void configCpf()throws DAOException, SQLException{
             if(config.getSnCpf().equalsIgnoreCase("N")){
                 lblObrigatorio1.setVisible(false);
             }
@@ -49,6 +68,9 @@ public class TelaCadCliente extends javax.swing.JInternalFrame {
                 
     }
     
+    /**
+     * CENTRALIZA A TELA NO MENU PRINCIPAL
+     */
     public void setPosicao() {
     Dimension d = this.getDesktopPane().getSize();
     this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2);
@@ -564,13 +586,13 @@ public class TelaCadCliente extends javax.swing.JInternalFrame {
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
       DAOCliente daoCliente =  new DAOCliente();
       
-      cliente.setNome(txtNome.getText().toUpperCase());
+      cliente.setNome(txtNome.getText());
       cliente.setCpf(txtCpf.getText());
-      cliente.setCep(txtCep.getText().toUpperCase());
-      cliente.setComplemento(txtComplemento.getText().toUpperCase());
-      cliente.setLogradouro(txtLogradouro.getText().toUpperCase());
-      cliente.setNumero(txtNumero.getText().toUpperCase());
-      cliente.setReferencia(txtReferencia.getText().toUpperCase());
+      cliente.setCep(txtCep.getText());
+      cliente.setComplemento(txtComplemento.getText());
+      cliente.setLogradouro(txtLogradouro.getText());
+      cliente.setNumero(txtNumero.getText());
+      cliente.setReferencia(txtReferencia.getText());
       cliente.setTelefone(txtTelefone.getText());
       cliente.setTelefone2(txtTelefone2.getText());
       cliente.setTelefone3(txtTelefone3.getText());

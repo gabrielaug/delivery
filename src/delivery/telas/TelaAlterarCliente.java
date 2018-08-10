@@ -12,6 +12,7 @@ import delivery.repositorio.DAOCliente;
 import delivery.repositorio.DAOConfig;
 import java.awt.event.KeyEvent;
 import delivery.util.BuscarCEP;
+import delivery.util.CustomDocument;
 import delivery.util.DAOException;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -23,7 +24,9 @@ import javax.swing.JOptionPane;
  */
 public class TelaAlterarCliente extends javax.swing.JDialog {
 
-    Cliente cliente;
+    private Cliente cliente;
+    private DAOConfig dao;
+    private Config config;
     
     /**
      * Creates new form TelaAlterarCliente
@@ -36,8 +39,13 @@ public class TelaAlterarCliente extends javax.swing.JDialog {
         
     }
 
+    /**
+     * CONSTRUTOR PADRÃO UTILIZADO NO SISTEMA
+     * @param cliente 
+     */
     public TelaAlterarCliente(Cliente cliente) {
         initComponents();
+        caixaMaiuscula();
         
         txtNome.setText(cliente.getNome());
         txtCpf.setText(cliente.getCpf());
@@ -51,8 +59,42 @@ public class TelaAlterarCliente extends javax.swing.JDialog {
         txtReferencia.setText(cliente.getReferencia());
         
         
+        dao = new DAOConfig();
+        try {
+            this.config = dao.verificarConfig();
+        } catch (DAOException | SQLException ex) {
+            
+        } 
+        
+    }
+    
+    /**
+     * COLOCA AS CAIXAS DE TEXTO'S MAIUSCULAS
+     */
+    private void caixaMaiuscula(){ 
+        
+      this.txtNome.setDocument(new CustomDocument());
+      this.txtComplemento.setDocument(new CustomDocument());
+      this.txtLogradouro.setDocument(new CustomDocument());
+      this.txtNumero.setDocument(new CustomDocument());
+      this.txtReferencia.setDocument(new CustomDocument()); 
+      
     }
 
+    /**
+     * VERIFICA SE O CPF E OBRIGATORIO E COLOCA O INDICADOR DE OBRIGATORIO.
+     * @throws DAOException
+     * @throws SQLException 
+     */
+    public void configCpf()throws DAOException, SQLException{
+            if(config.getSnCpf().equalsIgnoreCase("N")){
+                lblObrigatorio1.setVisible(false);
+            }
+ 
+                
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -178,6 +220,7 @@ public class TelaAlterarCliente extends javax.swing.JDialog {
         lblObrigatorio1.setForeground(new java.awt.Color(255, 0, 0));
         lblObrigatorio1.setText("*");
 
+        txtTelefone.setEditable(false);
         txtTelefone.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtTelefoneFocusLost(evt);
@@ -450,14 +493,15 @@ public class TelaAlterarCliente extends javax.swing.JDialog {
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         DAOCliente daoCliente =  new DAOCliente();
+        cliente =  new Cliente();
 
-        cliente.setNome(txtNome.getText().toUpperCase());
+        cliente.setNome(txtNome.getText());
         cliente.setCpf(txtCpf.getText());
-        cliente.setCep(txtCep.getText().toUpperCase());
-        cliente.setComplemento(txtComplemento.getText().toUpperCase());
-        cliente.setLogradouro(txtLogradouro.getText().toUpperCase());
-        cliente.setNumero(txtNumero.getText().toUpperCase());
-        cliente.setReferencia(txtReferencia.getText().toUpperCase());
+        cliente.setCep(txtCep.getText());
+        cliente.setComplemento(txtComplemento.getText());
+        cliente.setLogradouro(txtLogradouro.getText());
+        cliente.setNumero(txtNumero.getText());
+        cliente.setReferencia(txtReferencia.getText());
         cliente.setTelefone(txtTelefone.getText());
         cliente.setTelefone2(txtTelefone2.getText());
         cliente.setTelefone3(txtTelefone3.getText());
@@ -465,10 +509,17 @@ public class TelaAlterarCliente extends javax.swing.JDialog {
         try {
 
             if(daoCliente.consultarClienteExistente(cliente)){
-                alterarCliente(cliente);
+              
+             int confirma = JOptionPane.showConfirmDialog(this,"Tem certeza que deseja fazer esta alteração?","Confirmação de Alteração",JOptionPane.YES_NO_CANCEL_OPTION);
+                if(confirma == JOptionPane.YES_OPTION){
+                 alterarCliente(cliente);   
+                }else if(confirma == JOptionPane.NO_OPTION){
+                    this.dispose();
+                }
+                
             }else{
                 txtTelefone.grabFocus();
-                throw new DAOException("Telefone já cadastrado.");
+                throw new DAOException("Atenção telefone não cadastro, favor cadastre o cliente.");
             }
 
         } catch (DAOException | SQLException ex) {
@@ -480,14 +531,17 @@ public class TelaAlterarCliente extends javax.swing.JDialog {
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     public void alterarCliente(Cliente cliente) throws DAOException, SQLException, Exception{
-        
-        
-        // regra para alterar um cliente
+       
+        RNCliente rnCliente = new RNCliente();
+        try{
+          rnCliente.alterar(cliente);  
+          JOptionPane.showMessageDialog(this, "Alterado com Sucesso.","",JOptionPane.INFORMATION_MESSAGE);
+          this.dispose();
+        }catch(DAOException ex) {
+            
+        }        
        
     }
-    
-    
-    
     
     private void btnAlterarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnAlterarKeyPressed
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){

@@ -7,13 +7,11 @@ package delivery.telas;
 
 import delivery.basica.Login;
 import delivery.negocio.RNLogin;
+import delivery.util.CustomDocument;
 import delivery.util.DAOException;
 import delivery.util.MD5;
 import java.awt.event.KeyEvent;
-import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -29,6 +27,8 @@ public class TelaLogin extends javax.swing.JFrame {
      */
     public TelaLogin() {
         initComponents();
+        txtLogin.setDocument(new CustomDocument());
+        txtSenha.setDocument(new CustomDocument());
         md5 = new MD5();
         login = new Login();
         rn = new RNLogin();

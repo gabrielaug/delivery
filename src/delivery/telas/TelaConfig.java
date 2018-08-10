@@ -9,6 +9,7 @@ import delivery.basica.Config;
 import delivery.basica.Login;
 import delivery.negocio.RNLogin;
 import delivery.repositorio.DAOConfig;
+import delivery.util.CustomDocument;
 import delivery.util.DAOException;
 import delivery.util.MD5;
 import java.awt.Dimension;
@@ -30,10 +31,21 @@ public class TelaConfig extends javax.swing.JInternalFrame {
      */
     public TelaConfig(){
         initComponents();
+        caixaMaiuscula();
         config = new Config();
         dao = new DAOConfig();
 
     }
+    
+    /**
+     * COLOCA AS CAIXAS DE TEXTO'S MAIUSCULAS
+     */
+    private void caixaMaiuscula(){
+        txtLogin.setDocument(new CustomDocument());
+        txtSenha.setDocument(new CustomDocument());
+    }
+    
+    
        
     public void  verificar() throws DAOException, SQLException {
         config = dao.verificarConfig();
@@ -51,10 +63,7 @@ public class TelaConfig extends javax.swing.JInternalFrame {
         } 
         
     }   
-    /**
-     * CONSTRUTOR RECEBENDO PARAMETROS
-     * @param tamanhoDesktop VARIAL QUE RECEBE O TAMANHO DO DESKTOP E COLOCA DO MESMO TAMANHO O DA CONFIG
-     */
+
    /* public TelaConfig(Dimension tamanhoDesktop){
         initComponents();
        //setSize(tamanhoDesktop); 
