@@ -11,9 +11,8 @@ import delivery.repositorio.DAOCliente;
 import delivery.repositorio.DAOProduto;
 import delivery.util.DAOException;
 import java.awt.Dimension;
+import java.awt.event.KeyEvent;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -28,11 +27,11 @@ public class TelaAtendimento extends javax.swing.JInternalFrame {
     Dimension d = this.getDesktopPane().getSize();
     this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2);
     }
-    
+ 
     public void PesquisaCodigo(Produto produto) throws DAOException, SQLException{
         
         DAOProduto daop = new DAOProduto();
-        Produto nvp = new Produto();
+        Produto nvp;
         
         nvp = daop.PesqProdCodigo(produto);
         
@@ -42,23 +41,13 @@ public class TelaAtendimento extends javax.swing.JInternalFrame {
             txtCodVenda.setText(String.valueOf(nvp.getCodProduto()));
             txtNomeProdVenda.setText(nvp.getDescricao());
             txtValorProdVenda.setText(String.valueOf(nvp.getValor()));
-            
-            if(!txtNomeProdVenda.getText().trim().isEmpty() || !txtNomeProdVenda.getText().equalsIgnoreCase("")){
-                txtNomeProdVenda.setEditable(false);
-                
-            }
-            
-            
-            
-            
-                        
-            
+
         }
-        
-        
-        
+        if(!txtNomeProdVenda.getText().trim().isEmpty() || !txtNomeProdVenda.getText().equalsIgnoreCase("")){
+                txtNomeProdVenda.setEditable(false);      
+            }
+               
     }
-    
     
     
     /**
@@ -167,13 +156,28 @@ public class TelaAtendimento extends javax.swing.JInternalFrame {
         txtTotalPagar.setEditable(false);
 
         btnImprimirPedido.setText("Imprimir Pedido");
+        btnImprimirPedido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnImprimirPedidoKeyPressed(evt);
+            }
+        });
 
         btnResetGeral.setText("Limpar todas as Informações");
+        btnResetGeral.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnResetGeralKeyPressed(evt);
+            }
+        });
 
         btnAdicionarProduto.setText("Adicionar Produto");
         btnAdicionarProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAdicionarProdutoActionPerformed(evt);
+            }
+        });
+        btnAdicionarProduto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnAdicionarProdutoKeyPressed(evt);
             }
         });
 
@@ -204,6 +208,11 @@ public class TelaAtendimento extends javax.swing.JInternalFrame {
                 btnSairActionPerformed(evt);
             }
         });
+        btnSair.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnSairKeyPressed(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -213,11 +222,21 @@ public class TelaAtendimento extends javax.swing.JInternalFrame {
                 btnResetClienteActionPerformed(evt);
             }
         });
+        btnResetCliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnResetClienteKeyPressed(evt);
+            }
+        });
 
         btnLocalizar.setText("Localizar");
         btnLocalizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLocalizarActionPerformed(evt);
+            }
+        });
+        btnLocalizar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnLocalizarKeyPressed(evt);
             }
         });
 
@@ -226,6 +245,11 @@ public class TelaAtendimento extends javax.swing.JInternalFrame {
         txtTelefone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTelefoneActionPerformed(evt);
+            }
+        });
+        txtTelefone.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtTelefoneKeyPressed(evt);
             }
         });
 
@@ -455,7 +479,7 @@ public class TelaAtendimento extends javax.swing.JInternalFrame {
 
         DAOCliente daoc = new DAOCliente();
         Cliente nvc = new Cliente();
-        Cliente retorno = new Cliente();
+        Cliente retorno;
         nvc.setTelefone(txtTelefone.getText());
         
         try {
@@ -469,7 +493,12 @@ public class TelaAtendimento extends javax.swing.JInternalFrame {
                 txtReferencia1.setText(retorno.getReferencia());
                 txtNumero.setText(retorno.getNumero());
                 
+            }else{
+                txtTelefone.grabFocus();
+                txtTelefone.setText("");
+                throw new DAOException("Cliente não cadastrado.");    
             }
+            
             
             // TODO add your handling code here:
         } catch (DAOException | SQLException ex) {
@@ -499,18 +528,16 @@ public class TelaAtendimento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnResetClienteActionPerformed
 
     private void txtCodVendaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCodVendaFocusLost
-      
+
         Produto produto = new Produto();
-        
-        produto.setCodProduto(Integer.valueOf(txtCodVenda.getText()));
-        
-        
+        if(!txtCodVenda.getText().equalsIgnoreCase("") || txtCodVenda.getText().trim().isEmpty()){
+        produto.setCodProduto(Integer.parseInt(txtCodVenda.getText()));
+
+        }
         try {
             PesquisaCodigo(produto);
             if(txtCodVenda.getText().trim().isEmpty() || txtCodVenda.getText().equals("")){
-                txtNomeProdVenda.setEnabled(true);
-                
-                
+                txtNomeProdVenda.setEditable(true);   
             }
         } catch (DAOException | SQLException ex) {
             
@@ -520,6 +547,65 @@ public class TelaAtendimento extends javax.swing.JInternalFrame {
       
       
     }//GEN-LAST:event_txtCodVendaFocusLost
+
+    private void txtTelefoneKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefoneKeyPressed
+        
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            btnLocalizar.grabFocus();
+        }
+        
+        
+    }//GEN-LAST:event_txtTelefoneKeyPressed
+
+    private void btnLocalizarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnLocalizarKeyPressed
+        
+       if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            btnLocalizar.doClick();
+        } 
+        
+        
+    }//GEN-LAST:event_btnLocalizarKeyPressed
+
+    private void btnResetClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnResetClienteKeyPressed
+        
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            btnResetCliente.doClick();
+        }
+        
+    }//GEN-LAST:event_btnResetClienteKeyPressed
+
+    private void btnAdicionarProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnAdicionarProdutoKeyPressed
+        
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            btnAdicionarProduto.doClick();
+        }
+        
+    }//GEN-LAST:event_btnAdicionarProdutoKeyPressed
+
+    private void btnImprimirPedidoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnImprimirPedidoKeyPressed
+       
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            btnImprimirPedido.doClick();
+        }
+        
+        
+    }//GEN-LAST:event_btnImprimirPedidoKeyPressed
+
+    private void btnResetGeralKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnResetGeralKeyPressed
+        
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            btnResetGeral.doClick();
+        }
+        
+        
+    }//GEN-LAST:event_btnResetGeralKeyPressed
+
+    private void btnSairKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSairKeyPressed
+        
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            btnSair.doClick();
+        }
+    }//GEN-LAST:event_btnSairKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
