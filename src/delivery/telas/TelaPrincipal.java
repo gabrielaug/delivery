@@ -257,7 +257,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuEmpresaActionPerformed
 
     private void menuAtendimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAtendimentoActionPerformed
-        // TODO add your handling code here:
+       
+        TelaAtendimento telaatendimento = new TelaAtendimento();
+        desktop.add(telaatendimento);
+        telaatendimento.setPosicao();
+        telaatendimento.setVisible(true);
     }//GEN-LAST:event_menuAtendimentoActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed

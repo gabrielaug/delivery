@@ -208,4 +208,44 @@ public class DAOCliente implements InterfaceCliente{
         return retorno;
     }
     
+    public Cliente consultarTelefone(Cliente cliente) throws DAOException, SQLException {
+        
+        
+        Connection con = Conexao.getInstance().getConnection();
+        
+        String sql = "SELECT Nome,CPF,Telefone,Telefone2,Telefone3,Logradouro,CEP,Numero,Complemento,Referencia FROM Cliente WHERE Telefone = ?";
+        
+        PreparedStatement pstm;
+        pstm = con.prepareStatement(sql);
+        pstm.setString(1,cliente.getTelefone());
+        ResultSet rs = null;
+        
+        try{
+        rs = pstm.executeQuery();
+        
+            if(rs.next()){
+            Cliente retorno = new Cliente();
+            retorno.setNome(rs.getString("Nome"));
+            retorno.setCpf(rs.getString("CPF"));
+            retorno.setTelefone(rs.getString("Telefone"));
+            retorno.setTelefone2(rs.getString("Telefone2"));
+            retorno.setTelefone3(rs.getString("Telefone3"));
+            retorno.setLogradouro(rs.getString("Logradouro"));
+            retorno.setCep(rs.getString("CEP"));
+            retorno.setNumero(rs.getString("Numero"));
+            retorno.setComplemento(rs.getString("Complemento"));
+            retorno.setReferencia(rs.getString("Referencia"));
+           return retorno;
+                
+            }
+        }
+        catch(SQLException ex){
+            
+        }
+        finally{
+            Conexao.closeConnection(con, pstm, rs);
+        }
+        return null;
+    }
+    
 }

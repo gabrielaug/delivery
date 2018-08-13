@@ -192,6 +192,46 @@ public class DAOProduto implements InterfaceProduto {
         return retorno;
     }
     
+    /**
+     * METODO USADO PARA CARREGAR O OBJETO PRODUTO
+     * @param produto - OBJETO A SER PESQUISADO
+     * @return - RETORNA O OBJETO PRODUTO
+     * @throws DAOException
+     * @throws SQLException 
+     */
+    public Produto PesqProdCodigo(Produto produto) throws DAOException, SQLException {
+        
+        
+        Connection con = Conexao.getInstance().getConnection();
+        
+        String sql = "SELECT Cod_Produto, Descricao, Valor FROM Produto WHERE Cod_Produto = ?";
+        
+        PreparedStatement pstm;
+        pstm = con.prepareStatement(sql);
+        pstm.setInt(1,produto.getCodProduto());
+        ResultSet rs = null;
+        
+        try{
+        rs = pstm.executeQuery();
+        
+            if(rs.next()){
+                Produto retorno = new Produto();
+                retorno.setCodProduto(rs.getInt("Cod_Produto"));
+                retorno.setDescricao(rs.getString("Descricao"));
+                retorno.setValor(rs.getDouble("Valor"));
+
+                return retorno;
+            }
+        }
+        catch(SQLException ex){
+            
+        }
+        finally{
+            Conexao.closeConnection(con, pstm, rs);
+        }
+        return null;
+    }
+    
        
     
 }
