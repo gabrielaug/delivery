@@ -484,7 +484,7 @@ public class TelaAlterarCliente extends javax.swing.JDialog {
     }//GEN-LAST:event_txtTelefone3KeyPressed
 
     private void txtNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyPressed
-
+                
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
             txtCpf.grabFocus();
         }
@@ -534,9 +534,23 @@ public class TelaAlterarCliente extends javax.swing.JDialog {
        
         RNCliente rnCliente = new RNCliente();
         try{
-          rnCliente.alterar(cliente);  
-          JOptionPane.showMessageDialog(this, "Alterado com Sucesso.","",JOptionPane.INFORMATION_MESSAGE);
-          this.dispose();
+            
+            if(config.getSnCpf().equalsIgnoreCase("S")){
+                if(txtCpf.getText().equalsIgnoreCase("") || txtCpf.getText().trim().isEmpty()){
+                throw new DAOException("CPF é obrigatorio");
+                }
+                else{
+                rnCliente.alterar(cliente);  
+                JOptionPane.showMessageDialog(this, "Alterado com Sucesso.","",JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
+                }
+            }else{
+                rnCliente.alterar(cliente);  
+                JOptionPane.showMessageDialog(this, "Alterado com Sucesso.","",JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
+            }
+             
+          
         }catch(DAOException ex) {
             
         }        
