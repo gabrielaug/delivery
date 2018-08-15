@@ -13,6 +13,8 @@ import delivery.util.DAOException;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -27,29 +29,7 @@ public class TelaAtendimento extends javax.swing.JInternalFrame {
     Dimension d = this.getDesktopPane().getSize();
     this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2);
     }
- 
-    public void PesquisaCodigo(Produto produto) throws DAOException, SQLException{
-        
-        DAOProduto daop = new DAOProduto();
-        Produto nvp;
-        
-        nvp = daop.PesqProdCodigo(produto);
-        
-        
-        if(nvp != null){
-            
-            txtCodVenda.setText(String.valueOf(nvp.getCodProduto()));
-            txtNomeProdVenda.setText(nvp.getDescricao());
-            txtValorProdVenda.setText(String.valueOf(nvp.getValor()));
 
-        }
-        if(!txtNomeProdVenda.getText().trim().isEmpty() || !txtNomeProdVenda.getText().equalsIgnoreCase("")){
-                txtNomeProdVenda.setEditable(false);      
-            }
-               
-    }
-    
-    
     /**
      * Creates new form TelaAtendimento
      */
@@ -138,6 +118,11 @@ public class TelaAtendimento extends javax.swing.JInternalFrame {
         txtCodVenda.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtCodVendaFocusLost(evt);
+            }
+        });
+        txtCodVenda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCodVendaKeyPressed(evt);
             }
         });
 
@@ -530,22 +515,37 @@ public class TelaAtendimento extends javax.swing.JInternalFrame {
     private void txtCodVendaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCodVendaFocusLost
 
         Produto produto = new Produto();
-        if(!txtCodVenda.getText().equalsIgnoreCase("") || txtCodVenda.getText().trim().isEmpty()){
+        Produto p;
+        DAOProduto daop = new DAOProduto();
+        
+        if(!txtCodVenda.getText().trim().isEmpty() || !txtCodVenda.getText().equalsIgnoreCase("")){
         produto.setCodProduto(Integer.parseInt(txtCodVenda.getText()));
-
-        }
-        try {
-            PesquisaCodigo(produto);
-            if(txtCodVenda.getText().trim().isEmpty() || txtCodVenda.getText().equals("")){
-                txtNomeProdVenda.setEditable(true);   
-            }
-        } catch (DAOException | SQLException ex) {
-            
+        }else{
+          txtNomeProdVenda.setEditable(true);
+          txtNomeProdVenda.setText("");
+          txtValorProdVenda.setText("");
         }
         
-      
-      
-      
+        try {
+            p = daop.PesqProdCodigo(produto);
+            
+            if(p != null){
+               
+            txtCodVenda.setText(String.valueOf(p.getCodProduto()));
+            txtNomeProdVenda.setText(p.getDescricao());
+            txtValorProdVenda.setText(String.valueOf(p.getValor()));
+            txtNomeProdVenda.setEditable(false);
+            txtQuntdProdVenda.grabFocus();
+            
+            }
+            
+            
+            
+            
+             } catch (DAOException | SQLException ex) {
+            
+        }
+  
     }//GEN-LAST:event_txtCodVendaFocusLost
 
     private void txtTelefoneKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefoneKeyPressed
@@ -606,6 +606,13 @@ public class TelaAtendimento extends javax.swing.JInternalFrame {
             btnSair.doClick();
         }
     }//GEN-LAST:event_btnSairKeyPressed
+
+    private void txtCodVendaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodVendaKeyPressed
+        
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            txtNomeProdVenda.grabFocus();
+        }
+    }//GEN-LAST:event_txtCodVendaKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
