@@ -266,7 +266,7 @@ public class TelaCadProduto extends javax.swing.JInternalFrame {
         
       
       RNProduto rnProd = new RNProduto();
-      System.out.println(txtValorProduto.getText());
+      
       produto.setDescricao(txtDescricaoProduto.getText().toUpperCase());
       double valor = 0;
       if(!txtValorProduto.getText().trim().isEmpty() || !txtValorProduto.getText().equalsIgnoreCase("")){
