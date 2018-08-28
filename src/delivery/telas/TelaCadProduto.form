@@ -227,7 +227,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnAtualizarProduto">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Atualizar Produtos"/>
+        <Property name="text" type="java.lang.String" value="Atualizar Lista de Produtos"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAtualizarProdutoActionPerformed"/>

@@ -142,7 +142,7 @@ public class TelaCadProduto extends javax.swing.JInternalFrame {
             }
         });
 
-        btnAtualizarProduto.setText("Atualizar Produtos");
+        btnAtualizarProduto.setText("Atualizar Lista de Produtos");
         btnAtualizarProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAtualizarProdutoActionPerformed(evt);
@@ -268,7 +268,11 @@ public class TelaCadProduto extends javax.swing.JInternalFrame {
       RNProduto rnProd = new RNProduto();
       System.out.println(txtValorProduto.getText());
       produto.setDescricao(txtDescricaoProduto.getText().toUpperCase());
-      double valor = Double.parseDouble(txtValorProduto.getText().replace(',', '.')); // converte caso tenha virgula em ponto
+      double valor = 0;
+      if(!txtValorProduto.getText().trim().isEmpty() || !txtValorProduto.getText().equalsIgnoreCase("")){
+        valor = Double.parseDouble(txtValorProduto.getText().replace(',', '.')); // converte caso tenha virgula em ponto   
+      }
+      
       produto.setValor(valor);
          
         try {
