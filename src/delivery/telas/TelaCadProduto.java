@@ -8,6 +8,7 @@ package delivery.telas;
 import delivery.basica.Produto;
 import delivery.negocio.RNProduto;
 import delivery.util.CurrencyTableCellRenderer;
+import delivery.util.CustomDocument;
 import delivery.util.DAOException;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
@@ -33,10 +34,16 @@ public class TelaCadProduto extends javax.swing.JInternalFrame {
         
         initComponents();
         produto = new Produto();
+        caixaMaiuscula();
         lista();
         
                
     }
+    private void caixaMaiuscula(){
+       
+      this.txtDescricaoProduto.setDocument(new CustomDocument()); 
+    }
+    
     public void setPosicao() {
     Dimension d = this.getDesktopPane().getSize();
     this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2);

@@ -15,6 +15,7 @@ import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -120,6 +121,11 @@ public class TelaAtendimento extends javax.swing.JInternalFrame {
                 txtCodVendaFocusLost(evt);
             }
         });
+        txtCodVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCodVendaActionPerformed(evt);
+            }
+        });
         txtCodVenda.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtCodVendaKeyPressed(evt);
@@ -168,13 +174,13 @@ public class TelaAtendimento extends javax.swing.JInternalFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Cód. Produto", "Nome Produto", "Valor Unitário", "Quantidade", "Total Produto", "Observação"
             }
         ));
         jScrollPane3.setViewportView(jTable1);
@@ -453,7 +459,17 @@ public class TelaAtendimento extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAdicionarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarProdutoActionPerformed
-        // TODO add your handling code here:
+       
+        if (txtCodVenda.getText().equals("") || txtCodVenda.getText().trim().isEmpty()){
+            try {
+                throw new DAOException("Código de Produto Venda, inválido!");
+                
+            } catch (DAOException ex) {
+            txtCodVenda.grabFocus();
+            }
+            
+            
+        }
     }//GEN-LAST:event_btnAdicionarProdutoActionPerformed
 
     private void txtTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefoneActionPerformed
@@ -613,6 +629,11 @@ public class TelaAtendimento extends javax.swing.JInternalFrame {
             txtNomeProdVenda.grabFocus();
         }
     }//GEN-LAST:event_txtCodVendaKeyPressed
+
+    private void txtCodVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodVendaActionPerformed
+       
+   
+    }//GEN-LAST:event_txtCodVendaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

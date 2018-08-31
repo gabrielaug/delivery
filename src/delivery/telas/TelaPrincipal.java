@@ -82,6 +82,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
+        MenuEncerrarSessao = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Delivery v 1.0 | EMPTECS | www.emptecs.com.br");
@@ -209,6 +210,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         menuBarra.add(jMenu8);
 
+        MenuEncerrarSessao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/delivery/util/imagens/EncerrarSessao.png"))); // NOI18N
+        MenuEncerrarSessao.setText("Encerrar Sessão");
+        MenuEncerrarSessao.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MenuEncerrarSessaoMouseClicked(evt);
+            }
+        });
+        MenuEncerrarSessao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuEncerrarSessaoActionPerformed(evt);
+            }
+        });
+        menuBarra.add(MenuEncerrarSessao);
+
         setJMenuBar(menuBarra);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -298,6 +313,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void MenuEncerrarSessaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuEncerrarSessaoActionPerformed
+       
+        System.exit(0);
+        
+    }//GEN-LAST:event_MenuEncerrarSessaoActionPerformed
+
+    private void MenuEncerrarSessaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuEncerrarSessaoMouseClicked
+       
+        System.exit(0);
+    }//GEN-LAST:event_MenuEncerrarSessaoMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -334,6 +360,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu MenuEncerrarSessao;
     private javax.swing.JMenu btnEmpresa;
     private javax.swing.JDesktopPane desktop;
     private javax.swing.JMenu jMenu1;
