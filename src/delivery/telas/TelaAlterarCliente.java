@@ -221,6 +221,7 @@ public class TelaAlterarCliente extends javax.swing.JDialog {
         lblObrigatorio1.setText("*");
 
         txtTelefone.setEditable(false);
+        txtTelefone.setEnabled(false);
         txtTelefone.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtTelefoneFocusLost(evt);

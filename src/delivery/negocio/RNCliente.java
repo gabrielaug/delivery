@@ -13,8 +13,6 @@ import delivery.util.DAOException;
 import delivery.util.ValidarCPF;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -138,7 +136,7 @@ public class RNCliente implements InterfaceCliente{
         }
         
         if(cliente.getLogradouro().length() > 50){
-            throw new DAOException("Quantidade de caracteres de Telefone3 Excedido : 50");
+            throw new DAOException("Quantidade de caracteres de logradouro Excedido : 50");
         }
         
         //O CLIENTE PODE NÃO SABER O CEP
@@ -156,7 +154,7 @@ public class RNCliente implements InterfaceCliente{
         }
         
         if(cliente.getNumero().length() > 10 ){
-            throw new DAOException ("Quantidade de caracteres de Telefone3 Excedido : 10");
+            throw new DAOException ("Quantidade de caracteres de numero Excedido : 10");
         }
         
         if(cliente.getComplemento().trim().isEmpty() || cliente.getComplemento().equals("")){

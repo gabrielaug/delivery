@@ -68,14 +68,14 @@ public class DAOLogin implements InterfaceLogin{
        
        Connection con = Conexao.getInstance().getConnection();
         
-        String sql = "UPDATE Login SET Nome = ?,Senha = ?, Acesso = ? WHERE Usuario = ?";
+        String sql = "UPDATE Login SET Senha = ? WHERE Usuario = ?";
         
         PreparedStatement pstm;
         pstm = con.prepareStatement(sql);
-        pstm.setString(1,login.getNome());
-        pstm.setString(2,login.getSenha());
-        pstm.setInt(3,login.getNvAcesso().getAcesso());
-        pstm.setString(4,login.getUsuario());
+        //pstm.setString(1,login.getNome());
+        pstm.setString(1,login.getSenha());
+        //pstm.setInt(3,login.getNvAcesso().getAcesso());
+        pstm.setString(2,login.getUsuario());
         
         try{
             

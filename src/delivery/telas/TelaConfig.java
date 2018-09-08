@@ -15,10 +15,9 @@ import delivery.util.CustomDocument;
 import delivery.util.DAOException;
 import delivery.util.MD5;
 import java.awt.Dimension;
+import java.awt.event.KeyEvent;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -228,6 +227,12 @@ public class TelaConfig extends javax.swing.JInternalFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel6.setText("Alterar Senha do Usuário");
 
+        txtSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtSenhaKeyPressed(evt);
+            }
+        });
+
         jLabel7.setText("Usuário:");
 
         jLabel8.setText("Nova Senha:");
@@ -285,6 +290,12 @@ public class TelaConfig extends javax.swing.JInternalFrame {
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(204, 0, 0));
         jLabel9.setText("Exclusão de Cliente");
+
+        txtTelefone.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtTelefoneKeyPressed(evt);
+            }
+        });
 
         lblTelefone.setText("Telefone:");
 
@@ -480,6 +491,23 @@ public class TelaConfig extends javax.swing.JInternalFrame {
         }
   
     }//GEN-LAST:event_btnExcluirClienteActionPerformed
+
+    private void txtTelefoneKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefoneKeyPressed
+        
+         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            btnExcluirCliente.doClick();
+        }
+        
+        
+    }//GEN-LAST:event_txtTelefoneKeyPressed
+
+    private void txtSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyPressed
+        
+         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            btnAlterarSenha.doClick();
+        }
+        
+    }//GEN-LAST:event_txtSenhaKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
