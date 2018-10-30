@@ -6,6 +6,7 @@
 package delivery.basica;
 
 import java.sql.Date;
+import java.util.List;
 
 /**
  *
@@ -14,10 +15,21 @@ import java.sql.Date;
 public class Pedido {
     
     private int codPedido;
+
+   
+    private List<Produto> produto;
     private Cliente cliente;
     private Double valorTotal;
     private String obsCliente;
     private Date dtPedido;
+    
+     public List<Produto> getProduto() {
+        return produto;
+    }
+
+    public void setProduto(List<Produto> produto) {
+        this.produto = produto;
+    }
 
     public int getCodPedido() {
         return codPedido;

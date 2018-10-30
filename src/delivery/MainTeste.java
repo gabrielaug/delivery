@@ -5,10 +5,16 @@
  */
 package delivery;
 
-import delivery.basica.Login;
-import delivery.repositorio.DAOLogin;
+import delivery.basica.Cliente;
+import delivery.basica.Produto;
+import delivery.repositorio.DAOProduto;
 import delivery.util.Conexao;
+import delivery.util.DAOException;
+import delivery.util.MD5;
+import delivery.util.ValidarCPF;
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,9 +24,19 @@ import java.util.logging.Logger;
  */
 public class MainTeste {
     
-    public static void main(String[] args) {
-       //testeConexao(); 
-       testeInsert();
+    public static void main(String[] args) throws Exception {
+        try {
+            //testeConexao();
+            //testeInsert();
+            //valicpf();
+        } catch (Exception ex) {
+           
+        }
+        
+        
+        
+        //md();
+        lista();
     }
     
     
@@ -40,7 +56,7 @@ public class MainTeste {
         }   
     }
     
-    public static void testeInsert(){
+   /* public static void testeInsert(){
         Login l = new Login();
         
         l.setUsuario("ADMIN");
@@ -56,7 +72,54 @@ public class MainTeste {
         }
         
         
+    }*/
+    
+    public static void valicpf() throws Exception{
+        Cliente c = new Cliente();
+        ValidarCPF va = new ValidarCPF();
+        c.setCpf("11971071420");
+        
+        if(va.validar(c)){
+            System.out.println("CPF Valido");
+        }else{
+            System.out.println("CPF Invalido");
+        }
+        
+        
+        
+        
     }
     
+    public static void md()throws Exception{
+            MD5 md5 = new MD5();
+            String  senha= "GABRIEL";
+            System.out.println(md5.converter(senha));
+            
+            
+            
+            
+        }
+    
+    
+    public static void lista(){
+        DAOProduto dao = new DAOProduto();
+        Produto produto = new Produto();
+        ArrayList<Produto> listar = new ArrayList();
+        
+        try {
+            listar = dao.listar();
+        } catch (DAOException | SQLException ex) {
+           
+        }
+        
+        for (Produto p : listar ){
+            System.out.println(p.getDescricao());
+            
+        }
+        
+        
+        
+        
+    }
     
 }

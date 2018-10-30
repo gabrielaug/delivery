@@ -36,7 +36,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
      this.login.setNvAcesso(login.getNvAcesso());
      config = new DAOConfig();
      inicio();
-     jMenuItem2.setVisible(false); // FUTURA IMPLEMENTAÇÃO VERSÃO 2.0
+     menuPesqProduto.setVisible(false); // FUTURA IMPLEMENTAÇÃO VERSÃO 2.0
      
     }
        
@@ -74,7 +74,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        menuPesqProduto = new javax.swing.JMenuItem();
         btnEmpresa = new javax.swing.JMenu();
         menuFuncionamento = new javax.swing.JMenuItem();
         menuEmpresa = new javax.swing.JMenuItem();
@@ -87,8 +87,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Delivery v 1.0 | EMPTECS | www.emptecs.com.br");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setMinimumSize(new java.awt.Dimension(800, 600));
-        setPreferredSize(new java.awt.Dimension(800, 600));
+        setMinimumSize(new java.awt.Dimension(1280, 768));
+        setPreferredSize(new java.awt.Dimension(1280, 768));
 
         javax.swing.GroupLayout desktopLayout = new javax.swing.GroupLayout(desktop);
         desktop.setLayout(desktopLayout);
@@ -159,9 +159,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem1);
 
-        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/delivery/util/imagens/ListarProdutos.png"))); // NOI18N
-        jMenuItem2.setText("Pesquisar Produtos");
-        jMenu1.add(jMenuItem2);
+        menuPesqProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/delivery/util/imagens/ListarProdutos.png"))); // NOI18N
+        menuPesqProduto.setText("Pesquisar Produtos");
+        jMenu1.add(menuPesqProduto);
 
         menuBarra.add(jMenu1);
 
@@ -244,7 +244,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void menuFuncionamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFuncionamentoActionPerformed
         
         TelaConfig config = new TelaConfig();
-        desktop.removeAll();
         desktop.add(config);
         config.setPosicao();
         try {
@@ -368,7 +367,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
@@ -379,5 +377,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuEmpresa;
     private javax.swing.JMenuItem menuFuncionamento;
     private javax.swing.JMenuItem menuPainelPedido;
+    private javax.swing.JMenuItem menuPesqProduto;
     // End of variables declaration//GEN-END:variables
 }
