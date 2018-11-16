@@ -13,7 +13,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -32,7 +37,7 @@ public class DAOCliente implements InterfaceCliente{
         
         Connection con = Conexao.getInstance().getConnection();
         
-        String sql = "INSERT INTO Cliente (Nome,CPF,Telefone,Telefone2,Telefone3,Logradouro,CEP,Numero,Complemento,Referencia) VALUES (?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO Cliente (Nome,CPF,Telefone,Telefone2,Telefone3,Logradouro,CEP,Numero,Complemento,Referencia) VALUES (?,?,?,?,?,?,?,?,?,?,CURRENT_DATE)";
         
         PreparedStatement pstm;
         pstm = con.prepareStatement(sql);
@@ -147,7 +152,7 @@ public class DAOCliente implements InterfaceCliente{
         
         Connection con = Conexao.getInstance().getConnection();
         
-        String sql = "SELECT Nome,CPF,Telefone,Telefone2,Telefone3,Logradouro,CEP,Numero,Complemento,Referencia FROM Cliente";
+        String sql = "SELECT Nome,CPF,Telefone,Telefone2,Telefone3,Logradouro,CEP,Numero,Complemento,Referencia,Dt_Cadastro FROM Cliente";
         
         PreparedStatement pstm;
         pstm = con.prepareStatement(sql);
@@ -155,7 +160,7 @@ public class DAOCliente implements InterfaceCliente{
         
         try{
         rs = pstm.executeQuery();
-        
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         while(rs.next()){
             Cliente cliente = new Cliente();
             cliente.setNome(rs.getString("Nome"));
@@ -168,12 +173,13 @@ public class DAOCliente implements InterfaceCliente{
             cliente.setNumero(rs.getString("Numero"));
             cliente.setComplemento(rs.getString("Complemento"));
             cliente.setReferencia(rs.getString("Referencia"));
+            cliente.setDtCadastro(rs.getDate("Dt_Cadastro"));
             lista.add(cliente);
         }
         }
-        catch(SQLException ex){
+        catch(SQLException ex ){
             
-        }
+        } 
         finally{
             Conexao.closeConnection(con, pstm, rs);
         }
@@ -213,7 +219,7 @@ public class DAOCliente implements InterfaceCliente{
         
         Connection con = Conexao.getInstance().getConnection();
         
-        String sql = "SELECT Nome,CPF,Telefone,Telefone2,Telefone3,Logradouro,CEP,Numero,Complemento,Referencia FROM Cliente WHERE Telefone = ?";
+        String sql = "SELECT Nome,CPF,Telefone,Telefone2,Telefone3,Logradouro,CEP,Numero,Complemento,Referencia,Dt_Cadastro FROM Cliente WHERE Telefone = ?";
         
         PreparedStatement pstm;
         pstm = con.prepareStatement(sql);
@@ -235,6 +241,7 @@ public class DAOCliente implements InterfaceCliente{
             retorno.setNumero(rs.getString("Numero"));
             retorno.setComplemento(rs.getString("Complemento"));
             retorno.setReferencia(rs.getString("Referencia"));
+            cliente.setDtCadastro(rs.getDate("Dt_Cadastro"));
            return retorno;
                 
             }

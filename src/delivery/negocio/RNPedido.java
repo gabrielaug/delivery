@@ -33,14 +33,28 @@ public class RNPedido implements InterfacePedido {
     /**
      * VÁLIDA SE O CLIENTE ESTÁ CADASTRADO NO BANCO DE DADOS ATRAVÉS DO SEU TELEFONE
      * @param pedido - OBJETO A SER REGISTRADO NO BANCO DE DADOS.
+     * @return 
      * @throws DAOException
      * @throws SQLException 
      */
     @Override
-    public void inserir(Pedido pedido) throws DAOException, SQLException {
+    public int inserir(Pedido pedido) throws DAOException, SQLException {
+        
         validacaoPedido(pedido);
-        dao.inserir(pedido);
-      
+        try{
+        pedido.setCodPedido(dao.inserir(pedido));
+        
+        if(pedido.getCodPedido() != 0){
+            
+        dao.inserirPedidoProduto(pedido);   
+        
+        }
+        
+        }catch(SQLException ex){
+            
+        }
+        
+      return 0;
     }
 
     @Override
@@ -69,9 +83,6 @@ public class RNPedido implements InterfacePedido {
     if(pedido.getValorTotal() < 0){
           throw new DAOException("O valor total não pode ser negativo!");
         }
-            if(pedido.getObsCliente().length() > 255){
-                throw new DAOException("A mensagem é muito extensa, limite máximo para observação é de 255 caracter!"); 
-                }
     }
 
     @Override

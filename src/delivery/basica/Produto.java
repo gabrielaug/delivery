@@ -14,6 +14,25 @@ public class Produto {
     private int codProduto;
     private String descricao;
     private double valor;
+    private String obsProduto;
+    private int unidade;
+    
+    public int getUnidade() {
+        return unidade;
+    }
+
+    public void setUnidade(int unidade) {
+        this.unidade = unidade;
+    }
+    
+
+    public String getObsProduto() {
+        return obsProduto;
+    }
+
+    public void setObsProduto(String obsProduto) {
+        this.obsProduto = obsProduto;
+    }
 
     public int getCodProduto() {
         return codProduto;

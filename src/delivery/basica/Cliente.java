@@ -5,6 +5,8 @@
  */
 package delivery.basica;
 
+import java.util.Date;
+
 /**
  *
  * @author Gabriel Augusto
@@ -21,6 +23,16 @@ public class Cliente {
     private String numero;
     private String complemento;
     private String referencia;
+    private Date dtCadastro;
+
+    public Date getDtCadastro() {
+        return dtCadastro;
+    }
+
+    public void setDtCadastro(Date dtCadastro) {
+        this.dtCadastro = dtCadastro;
+    }
+    
 
     public String getNome() {
         return nome;

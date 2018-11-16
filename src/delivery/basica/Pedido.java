@@ -5,7 +5,7 @@
  */
 package delivery.basica;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -15,13 +15,19 @@ import java.util.List;
 public class Pedido {
     
     private int codPedido;
-
-   
     private List<Produto> produto;
     private Cliente cliente;
     private Double valorTotal;
-    private String obsCliente;
-    private Date dtPedido;
+    private Timestamp dtPedido;
+    private double valorFrete;
+
+    public double getValorFrete() {
+        return valorFrete;
+    }
+
+    public void setValorFrete(double valorFrete) {
+        this.valorFrete = valorFrete;
+    }
     
      public List<Produto> getProduto() {
         return produto;
@@ -56,21 +62,15 @@ public class Pedido {
         this.valorTotal = valorTotal;
     }
 
-    public String getObsCliente() {
-        return obsCliente;
-    }
-
-    public void setObsCliente(String obsCliente) {
-        this.obsCliente = obsCliente;
-    }
-
-    public Date getDtPedido() {
+    public Timestamp getDtPedido() {
         return dtPedido;
     }
 
-    public void setDtPedido(Date dtPedido) {
+    public void setDtPedido(Timestamp dtPedido) {
         this.dtPedido = dtPedido;
     }
+
+    
     
     
     

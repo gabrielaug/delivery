@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public interface InterfacePedido {
     
     
-    public void inserir (Pedido pedido) throws DAOException, SQLException;
+    public int inserir (Pedido pedido) throws DAOException, SQLException;
     
     public void alterar (Pedido pedido) throws DAOException, SQLException;
     
