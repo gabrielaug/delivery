@@ -68,6 +68,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menuBarra = new javax.swing.JMenuBar();
         jMenu5 = new javax.swing.JMenu();
         menuAtendimento = new javax.swing.JMenuItem();
+        menuReImprimirPedido = new javax.swing.JMenuItem();
+        menuCancelarPedido = new javax.swing.JMenuItem();
         menuPainelPedido = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         menuCadastrarCliente = new javax.swing.JMenuItem();
@@ -79,9 +81,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menuFuncionamento = new javax.swing.JMenuItem();
         menuEmpresa = new javax.swing.JMenuItem();
         jMenu8 = new javax.swing.JMenu();
+        jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
         MenuEncerrarSessao = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -113,6 +117,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu5.add(menuAtendimento);
+
+        menuReImprimirPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/delivery/util/imagens/re-imprimirPedido.png"))); // NOI18N
+        menuReImprimirPedido.setText("Re-Imprimir Pedido");
+        jMenu5.add(menuReImprimirPedido);
+
+        menuCancelarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/delivery/util/imagens/cancelarPedido.png"))); // NOI18N
+        menuCancelarPedido.setText("Cancelar Pedido");
+        jMenu5.add(menuCancelarPedido);
 
         menuPainelPedido.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK));
         menuPainelPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/delivery/util/imagens/Tela.png"))); // NOI18N
@@ -196,6 +208,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/delivery/util/imagens/Relatorios.png"))); // NOI18N
         jMenu8.setText("Relatório");
 
+        jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/delivery/util/imagens/RelatorioCliente.png"))); // NOI18N
+        jMenuItem7.setText("Relatório de Clientes");
+        jMenu8.add(jMenuItem7);
+
         jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/delivery/util/imagens/PedidoPorCliente.png"))); // NOI18N
         jMenuItem8.setText("Pedido por Cliente");
         jMenu8.add(jMenuItem8);
@@ -209,6 +225,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu8.add(jMenuItem5);
 
         menuBarra.add(jMenu8);
+
+        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/delivery/util/imagens/infor.png"))); // NOI18N
+        jMenu3.setText("Informação");
+        jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu3MouseClicked(evt);
+            }
+        });
+        menuBarra.add(jMenu3);
 
         MenuEncerrarSessao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/delivery/util/imagens/EncerrarSessao.png"))); // NOI18N
         MenuEncerrarSessao.setText("Encerrar Sessão");
@@ -319,9 +344,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_MenuEncerrarSessaoActionPerformed
 
     private void MenuEncerrarSessaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuEncerrarSessaoMouseClicked
-       
+ 
         System.exit(0);
     }//GEN-LAST:event_MenuEncerrarSessaoMouseClicked
+
+    private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
+        
+        TelaInformacao tela = new TelaInformacao(login);
+        tela.setModal(true);
+        tela.setVisible(true);
+        
+        
+    }//GEN-LAST:event_jMenu3MouseClicked
 
     /**
      * @param args the command line arguments
@@ -364,19 +398,23 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JDesktopPane desktop;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem menuAtendimento;
     private javax.swing.JMenuBar menuBarra;
     private javax.swing.JMenuItem menuCadastrarCliente;
+    private javax.swing.JMenuItem menuCancelarPedido;
     private javax.swing.JMenuItem menuEmpresa;
     private javax.swing.JMenuItem menuFuncionamento;
     private javax.swing.JMenuItem menuPainelPedido;
     private javax.swing.JMenuItem menuPesqProduto;
+    private javax.swing.JMenuItem menuReImprimirPedido;
     // End of variables declaration//GEN-END:variables
 }

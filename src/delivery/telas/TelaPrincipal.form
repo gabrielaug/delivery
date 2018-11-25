@@ -26,6 +26,22 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuAtendimentoActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="menuReImprimirPedido">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/delivery/util/imagens/re-imprimirPedido.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Re-Imprimir Pedido"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="menuCancelarPedido">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/delivery/util/imagens/cancelarPedido.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Cancelar Pedido"/>
+              </Properties>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuPainelPedido">
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
@@ -152,6 +168,14 @@
             <Property name="text" type="java.lang.String" value="Relat&#xf3;rio"/>
           </Properties>
           <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem7">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/delivery/util/imagens/RelatorioCliente.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Clientes"/>
+              </Properties>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem8">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -177,6 +201,17 @@
               </Properties>
             </MenuItem>
           </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="jMenu3">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/delivery/util/imagens/infor.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Informa&#xe7;&#xe3;o"/>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jMenu3MouseClicked"/>
+          </Events>
         </Menu>
         <Menu class="javax.swing.JMenu" name="MenuEncerrarSessao">
           <Properties>

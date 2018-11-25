@@ -82,6 +82,12 @@ public class TelaCadProduto extends javax.swing.JInternalFrame {
 
         lblValorProduto.setText("Valor do Produto :");
 
+        txtDescricaoProduto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDescricaoProdutoKeyTyped(evt);
+            }
+        });
+
         lblCadastroProduto.setFont(new java.awt.Font("Tahoma", 2, 18)); // NOI18N
         lblCadastroProduto.setForeground(new java.awt.Color(0, 51, 204));
         lblCadastroProduto.setText("Cadastro de Produto");
@@ -146,6 +152,12 @@ public class TelaCadProduto extends javax.swing.JInternalFrame {
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExcluirActionPerformed(evt);
+            }
+        });
+
+        txtValorProduto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtValorProdutoKeyTyped(evt);
             }
         });
 
@@ -276,6 +288,7 @@ public class TelaCadProduto extends javax.swing.JInternalFrame {
       
       produto.setDescricao(txtDescricaoProduto.getText().toUpperCase());
       double valor = 0;
+      
       if(!txtValorProduto.getText().trim().isEmpty() || !txtValorProduto.getText().equalsIgnoreCase("")){
         valor = Double.parseDouble(txtValorProduto.getText().replace(',', '.')); // converte caso tenha virgula em ponto   
       }
@@ -353,6 +366,19 @@ public class TelaCadProduto extends javax.swing.JInternalFrame {
         
         
     }//GEN-LAST:event_btnRestCadastroActionPerformed
+
+    private void txtValorProdutoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorProdutoKeyTyped
+        String carac = "0123456789,.";
+        if(!carac.contains(evt.getKeyChar()+"")){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtValorProdutoKeyTyped
+
+    private void txtDescricaoProdutoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescricaoProdutoKeyTyped
+       if(txtDescricaoProduto.getText().length() > 60){
+           evt.consume();
+       }
+    }//GEN-LAST:event_txtDescricaoProdutoKeyTyped
 
      private void lista(){
         RNProduto rnProd = new RNProduto(); //CRIAR A INSTANCIA DA FACHADA

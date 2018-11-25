@@ -129,6 +129,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtDescricaoProduto">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtDescricaoProdutoKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblCadastroProduto">
       <Properties>
@@ -224,6 +227,9 @@
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtValorProduto">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtValorProdutoKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnAtualizarProduto">
       <Properties>

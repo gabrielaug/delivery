@@ -259,7 +259,10 @@ public class TelaEmpresa extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void txtCepKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCepKeyTyped
-      
+        String carac = "0123456789";
+        if(!carac.contains(evt.getKeyChar()+"")){
+            evt.consume();
+        }      
         int numero = 8;
         if(txtCep.getText().length() >= numero){
             txtNumero.grabFocus(); 

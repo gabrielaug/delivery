@@ -175,7 +175,7 @@ public class TelaAlterarCliente extends javax.swing.JDialog {
 
         lblTitulo.setFont(new java.awt.Font("Tahoma", 2, 18)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(0, 51, 204));
-        lblTitulo.setText("Alterar Cliente");
+        lblTitulo.setText("Alterar dados do Cliente");
 
         lblNome.setText("Nome");
 
@@ -293,10 +293,6 @@ public class TelaAlterarCliente extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(187, 187, 187)
-                .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -366,6 +362,10 @@ public class TelaAlterarCliente extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblObrigatorio8, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(140, 140, 140))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -624,7 +624,10 @@ public class TelaAlterarCliente extends javax.swing.JDialog {
     }//GEN-LAST:event_txtCepKeyPressed
 
     private void txtCepKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCepKeyTyped
-
+        String carac = "0123456789";
+        if(!carac.contains(evt.getKeyChar()+"")){
+            evt.consume();
+        }
         int numero = 8;
         if(txtCep.getText().length() >= numero){
             txtLogradouro.grabFocus();
