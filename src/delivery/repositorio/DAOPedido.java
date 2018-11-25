@@ -38,26 +38,29 @@ public class DAOPedido implements InterfacePedido{
         
         int id = 0;
         
-        String sql = "INSERT INTO Pedido (Telefone,Valor_Total,Dt_Pedido,Valor_Frete) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO Pedido (Telefone,Valor_Total,Valor_Frete,Pgto) VALUES (?,?,?,?)";
         
         PreparedStatement pstm;
         pstm = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
         pstm.setString(1,pedido.getCliente().getTelefone());
         pstm.setDouble(2,pedido.getValorTotal());
-        pstm.setTimestamp(3,pedido.getDtPedido());
-        pstm.setDouble(4,pedido.getValorFrete());
+        pstm.setDouble(3,pedido.getValorFrete());
+        pstm.setString(4,pedido.getPgto());
         try{
          
         pstm.executeUpdate();
          
         final ResultSet rs = pstm.getGeneratedKeys();
         
-        id = rs.getInt(1);
+        if (rs.next()) {
+            id = rs.getInt(1);
+        }
+        
         }
         catch(SQLException ex){
-            
         }
         finally{
+            
            Conexao.closeConnection(con, pstm); 
         }
         return id;
@@ -75,7 +78,7 @@ public class DAOPedido implements InterfacePedido{
         
         String sql = "INSERT INTO Pedido_Produto (Cod_Pedido, Cod_Produto, Unidade, Obs_Produto) VALUES ";
         
-        List<Produto> listaProdutos;
+        ArrayList<Produto> listaProdutos = new ArrayList<>();
         
         listaProdutos = pedido.getProduto();
         
@@ -89,9 +92,9 @@ public class DAOPedido implements InterfacePedido{
             pstm = con.prepareStatement(sql);
         
             pstm.setInt(1,pedido.getCodPedido());
-            pstm.setInt(2,listaProdutos.get(1).getCodProduto());       
-            pstm.setInt(3,listaProdutos.get(1).getUnidade());
-            pstm.setString(4,listaProdutos.get(1).getObsProduto());
+            pstm.setInt(2,listaProdutos.get(0).getCodProduto());       
+            pstm.setInt(3,listaProdutos.get(0).getUnidade());
+            pstm.setString(4,listaProdutos.get(0).getObsProduto());
         
             try{
             

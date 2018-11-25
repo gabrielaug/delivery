@@ -6,7 +6,9 @@
 package delivery.telas;
 
 import delivery.basica.Cliente;
+import delivery.basica.Pedido;
 import delivery.basica.Produto;
+import delivery.negocio.RNPedido;
 import delivery.repositorio.DAOCliente;
 import delivery.repositorio.DAOProduto;
 import delivery.util.CurrencyTableCellRenderer;
@@ -25,6 +27,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class TelaAtendimento extends javax.swing.JInternalFrame {
 
+    Pedido pedido;
+    Cliente clienteRetorno;
     
     /**
      * CENTRALIZA A TELA NO MENU PRINCIPAL
@@ -43,6 +47,8 @@ public class TelaAtendimento extends javax.swing.JInternalFrame {
      */
     public TelaAtendimento() {
         initComponents();
+        pedido = new Pedido();
+        clienteRetorno = new Cliente();
         produto =  new ArrayList<>();   
         daop = new DAOProduto();
         InicioComanda();
@@ -65,7 +71,8 @@ public class TelaAtendimento extends javax.swing.JInternalFrame {
     private void calcular(){
         
         if(!txtTotalPagar.getText().isEmpty() || !txtTotalPagar.getText().trim().equals("")){
-                txtTotalPagar.setValue(Double.parseDouble(txtTotalPagar.getText().replace(",", ".").replace("R$", "")) + Double.parseDouble(txtValorFrete.getText().replace(",", ".").replace("R$", "")));
+                txtTotalPagar.setValue(contadorTotal() +  Double.parseDouble(txtValorFrete.getText().replace(",", ".").replace("R$", "")));
+              //  txtTotalPagar.setValue(Double.parseDouble(txtTotalPagar.getText().replace(",", ".").replace("R$", "")) + Double.parseDouble(txtValorFrete.getText().replace(",", ".").replace("R$", "")));
         }
     }
     
@@ -119,7 +126,6 @@ public class TelaAtendimento extends javax.swing.JInternalFrame {
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
         lblValorFrete = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         txtTotalPagar = new javax.swing.JFormattedTextField();
         txtValorProdVenda = new javax.swing.JFormattedTextField();
         txtValorDinheiro = new javax.swing.JFormattedTextField();
@@ -127,6 +133,9 @@ public class TelaAtendimento extends javax.swing.JInternalFrame {
         txtTrocoDinheiro = new javax.swing.JFormattedTextField();
         txtQtdPedido = new javax.swing.JTextField();
         lblQtdPedido = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        chkCartao = new java.awt.Checkbox();
+        lblStatus = new javax.swing.JLabel();
 
         lblNomeCliente.setText("Nome do Cliente:");
 
@@ -187,13 +196,18 @@ public class TelaAtendimento extends javax.swing.JInternalFrame {
         jLabel1.setForeground(new java.awt.Color(0, 51, 204));
         jLabel1.setText("Produtos da Comanda");
 
-        lblTotalPagar.setText("Valor total a pagar:");
+        lblTotalPagar.setText("Valor Total a Pagar:");
 
         lblValorDinheiro.setText("Valor em Dinheiro:");
 
         lblTrocoDinheiro.setText("Troco em Dinheiro:");
 
         btnImprimirPedido.setText("Imprimir Comanda");
+        btnImprimirPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirPedidoActionPerformed(evt);
+            }
+        });
         btnImprimirPedido.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 btnImprimirPedidoKeyPressed(evt);
@@ -361,17 +375,11 @@ public class TelaAtendimento extends javax.swing.JInternalFrame {
         lblDadosdoCliente.setForeground(new java.awt.Color(0, 51, 204));
         lblDadosdoCliente.setText("Dados do Cliente");
 
-        lblValorFrete.setText("Valor do Frete");
-
-        jButton1.setText("Cartão");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        lblValorFrete.setText("Valor do Frete:");
 
         txtTotalPagar.setEditable(false);
         txtTotalPagar.setBackground(new java.awt.Color(255, 255, 255));
+        txtTotalPagar.setForeground(new java.awt.Color(255, 0, 51));
         txtTotalPagar.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getCurrencyInstance())));
         txtTotalPagar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
@@ -411,14 +419,42 @@ public class TelaAtendimento extends javax.swing.JInternalFrame {
         });
 
         txtTrocoDinheiro.setEditable(false);
+        txtTrocoDinheiro.setForeground(new java.awt.Color(0, 153, 51));
         txtTrocoDinheiro.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getCurrencyInstance())));
-        txtTrocoDinheiro.setCaretColor(new java.awt.Color(0, 204, 51));
         txtTrocoDinheiro.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
         txtQtdPedido.setEditable(false);
         txtQtdPedido.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
         lblQtdPedido.setText("Qtd. Pedido:");
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        chkCartao.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        chkCartao.setForeground(new java.awt.Color(0, 51, 204));
+        chkCartao.setLabel("Cartão");
+        chkCartao.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                chkCartaoItemStateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(20, Short.MAX_VALUE)
+                .addComponent(chkCartao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(chkCartao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        lblStatus.setFont(new java.awt.Font("Tahoma", 2, 18)); // NOI18N
+        lblStatus.setForeground(new java.awt.Color(0, 51, 204));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -502,38 +538,38 @@ public class TelaAtendimento extends javax.swing.JInternalFrame {
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(381, 381, 381))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(335, 335, 335)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnResetGeral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnImprimirPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnSair, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(81, 81, 81)
-                                        .addComponent(lblValorDinheiro)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtValorDinheiro, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGap(338, 338, 338)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addComponent(lblTotalPagar)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(txtTotalPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addComponent(lblTrocoDinheiro)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(txtTrocoDinheiro, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(btnResetGeral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(btnImprimirPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(btnSair, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGap(70, 70, 70))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lblValorFrete)
+                                        .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(lblTotalPagar)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtValorFrete, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addComponent(txtTotalPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(lblTrocoDinheiro)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtTrocoDinheiro, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(lblValorDinheiro)
+                                        .addComponent(lblValorFrete))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txtValorFrete)
+                                        .addComponent(txtValorDinheiro, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)))
+                                .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(79, 79, 79))))
         );
         layout.setVerticalGroup(
@@ -597,22 +633,15 @@ public class TelaAtendimento extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(51, 51, 51)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtValorFrete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblValorFrete))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnImprimirPedido)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnResetGeral)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSair)
-                        .addGap(55, 55, 55))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblValorDinheiro)
                             .addComponent(txtValorDinheiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -623,8 +652,16 @@ public class TelaAtendimento extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblTrocoDinheiro)
-                            .addComponent(txtTrocoDinheiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(69, Short.MAX_VALUE))))
+                            .addComponent(txtTrocoDinheiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnImprimirPedido)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnResetGeral)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSair)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -700,6 +737,27 @@ public class TelaAtendimento extends javax.swing.JInternalFrame {
     }
     
     
+    
+    public void AtualizarTroco(){
+        
+        if(!chkCartao.getState()){
+            
+            if(!txtValorDinheiro.getText().isEmpty() || !txtValorDinheiro.getText().trim().equals("")){
+            double v1 = Double.parseDouble(txtValorDinheiro.getText().replace(",", ".").replace("R$",""));
+        double v2 = Double.parseDouble(txtTotalPagar.getText().replace(",", ".").replace("R$", ""));
+        
+        if( v1 <= v2){
+            txtTrocoDinheiro.setValue(0);
+        }else{
+          txtTrocoDinheiro.setValue(v1 - v2);  
+        }
+        }        
+        
+            
+        }
+        
+    }
+    
     private void txtTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefoneActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTelefoneActionPerformed
@@ -708,19 +766,19 @@ public class TelaAtendimento extends javax.swing.JInternalFrame {
 
         DAOCliente daoc = new DAOCliente();
         Cliente nvc = new Cliente();
-        Cliente retorno;
+        
         nvc.setTelefone(txtTelefone.getText());
         
         try {
-            retorno = daoc.consultarTelefone(nvc);
+            clienteRetorno = daoc.consultarTelefone(nvc);
             
-            if(retorno != null ){
+            if(clienteRetorno != null ){
                 
-                txtNomeCliente.setText(retorno.getNome());
-                txtEndereco.setText(retorno.getLogradouro());
-                txtComplemento.setText(retorno.getComplemento());
-                txtReferencia1.setText(retorno.getReferencia());
-                txtNumero.setText(retorno.getNumero());
+                txtNomeCliente.setText(clienteRetorno.getNome());
+                txtEndereco.setText(clienteRetorno.getLogradouro());
+                txtComplemento.setText(clienteRetorno.getComplemento());
+                txtReferencia1.setText(clienteRetorno.getReferencia());
+                txtNumero.setText(clienteRetorno.getNumero());
                 txtCodVenda.grabFocus();
                 
             }else{
@@ -886,7 +944,8 @@ public class TelaAtendimento extends javax.swing.JInternalFrame {
 
     private void txtValorDinheiroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorDinheiroKeyPressed
        if(evt.getKeyCode() == KeyEvent.VK_ENTER || evt.getKeyCode() == KeyEvent.VK_TAB){
-            btnImprimirPedido.grabFocus();
+           AtualizarTroco(); 
+           btnImprimirPedido.grabFocus();
         }
     }//GEN-LAST:event_txtValorDinheiroKeyPressed
 
@@ -924,6 +983,7 @@ public class TelaAtendimento extends javax.swing.JInternalFrame {
                tbComanda.setValueAt(retorno.getValor()*retorno.getUnidade(), linha, 4);
                tbComanda.setValueAt(retorno.getObsProduto(), linha, 5);
                contadorTotal();
+               AtualizarTroco();
            }           
 
             }  
@@ -939,7 +999,9 @@ public class TelaAtendimento extends javax.swing.JInternalFrame {
         if(!txtValorDinheiro.getText().isEmpty() || !txtValorDinheiro.getText().trim().equals("")){
         valor = Double.parseDouble(txtValorDinheiro.getText().replace(",", ".").replace("R$",""));
         txtValorDinheiro.setValue(valor);
+        AtualizarTroco();
         }
+        
     }//GEN-LAST:event_txtValorDinheiroFocusLost
 
     private void txtValorFreteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtValorFreteFocusLost
@@ -948,6 +1010,7 @@ public class TelaAtendimento extends javax.swing.JInternalFrame {
             valor = Double.parseDouble(txtValorFrete.getText().replace(",", ".").replace("R$",""));
             txtValorFrete.setValue(valor);
             calcular();
+            AtualizarTroco();
         }
         
         
@@ -959,10 +1022,6 @@ public class TelaAtendimento extends javax.swing.JInternalFrame {
             txtValorDinheiro.grabFocus();
         }
     }//GEN-LAST:event_txtValorFreteKeyPressed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtValorFreteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorFreteKeyTyped
        String carac = "0123456789,.";
@@ -989,6 +1048,73 @@ public class TelaAtendimento extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNomeProdVendaKeyTyped
 
+    private void chkCartaoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chkCartaoItemStateChanged
+        if(chkCartao.getState()){
+            txtValorDinheiro.setText("");
+            pedido.setPgto("C");
+            txtValorDinheiro.setEditable(false);
+            AtualizarTroco();
+        }else{
+            pedido.setPgto("D");
+            txtValorDinheiro.setEditable(true);
+            AtualizarTroco();
+        }
+        
+        
+    }//GEN-LAST:event_chkCartaoItemStateChanged
+
+    private void btnImprimirPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirPedidoActionPerformed
+            RNPedido rn = new RNPedido();
+            int codigo;
+           lblStatus.setText("Gravando Pedido...");
+           pedido.setCliente(clienteRetorno);
+           if(!chkCartao.getState()){
+            pedido.setPgto("D");   
+           }
+           
+           if(txtValorFrete.getValue() == null){
+               pedido.setValorFrete(0);
+           }else{
+               pedido.setValorFrete((double) txtValorFrete.getValue());
+           }
+           pedido.setValorTotal((double) txtTotalPagar.getValue());
+           
+           int linha = 0;
+           
+           ArrayList<Produto> produtos = new ArrayList<>();
+           Produto p = new Produto();
+           
+           while(linha < modelo.getRowCount()){
+               
+               p.setCodProduto((int) modelo.getValueAt(linha, 0));
+               p.setDescricao((String) modelo.getValueAt(linha, 1));
+               p.setValor((double) modelo.getValueAt(linha, 2));
+               p.setUnidade((int) modelo.getValueAt(linha, 3));
+               if(modelo.getValueAt(linha, 5) != null){
+                p.setObsProduto((String) modelo.getValueAt(linha, 5));   
+               }
+               produtos.add(p);
+               linha++;
+            } 
+           
+           pedido.setProduto(produtos);
+           try{
+               codigo = rn.inserir(pedido);
+               lblStatus.setText("Número do Pedido: "+ codigo+" Registrado com Sucesso");
+               
+           } catch (DAOException | SQLException ex) {
+            
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_btnImprimirPedidoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionarProduto;
@@ -997,10 +1123,11 @@ public class TelaAtendimento extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnResetCliente;
     private javax.swing.JButton btnResetGeral;
     private javax.swing.JButton btnSair;
-    private javax.swing.JButton jButton1;
+    private java.awt.Checkbox chkCartao;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
@@ -1016,6 +1143,7 @@ public class TelaAtendimento extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblQtdPedido;
     private javax.swing.JLabel lblQuantidade;
     private javax.swing.JLabel lblReferenciaEntrega;
+    private javax.swing.JLabel lblStatus;
     private javax.swing.JLabel lblTelefone;
     private javax.swing.JLabel lblTotalPagar;
     private javax.swing.JLabel lblTrocoDinheiro;

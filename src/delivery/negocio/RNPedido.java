@@ -39,22 +39,22 @@ public class RNPedido implements InterfacePedido {
      */
     @Override
     public int inserir(Pedido pedido) throws DAOException, SQLException {
-        
+      int retorno = 0;  
+      try{
         validacaoPedido(pedido);
-        try{
-        pedido.setCodPedido(dao.inserir(pedido));
-        
-        if(pedido.getCodPedido() != 0){
-            
-        dao.inserirPedidoProduto(pedido);   
-        
+        retorno = dao.inserir(pedido);
+        if(retorno > 0){
+          dao.inserirPedidoProduto(pedido);
         }
         
-        }catch(SQLException ex){
-            
-        }
-        
-      return 0;
+      }catch(DAOException ex){
+          
+      }
+      
+      
+      
+      
+      return retorno;
     }
 
     @Override
@@ -79,7 +79,9 @@ public class RNPedido implements InterfacePedido {
     }
     
     public void validacaoPedido(Pedido pedido) throws DAOException{
-    
+    if(pedido.getCliente() == null){
+        throw new DAOException("Cliente não Existe");
+    }
     if(pedido.getValorTotal() < 0){
           throw new DAOException("O valor total não pode ser negativo!");
         }

@@ -274,7 +274,7 @@ public class TelaAlterarProdutoPedido extends javax.swing.JDialog {
         
         produto.setUnidade(Integer.parseInt(txtQuantidade.getText()));
         produto.setObsProduto(txtObs.getText());
-        
+       
         this.dispose();
 
 

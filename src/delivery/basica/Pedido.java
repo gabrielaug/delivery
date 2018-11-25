@@ -6,7 +6,7 @@
 package delivery.basica;
 
 import java.sql.Timestamp;
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  *
@@ -15,11 +15,21 @@ import java.util.List;
 public class Pedido {
     
     private int codPedido;
-    private List<Produto> produto;
-    private Cliente cliente;
+    private ArrayList<Produto> produto = new ArrayList<>();
+    private Cliente cliente = new Cliente();
     private Double valorTotal;
     private Timestamp dtPedido;
     private double valorFrete;
+    private String pgto;
+
+    public String getPgto() {
+        return pgto;
+    }
+
+    public void setPgto(String pgto) {
+        this.pgto = pgto;
+    }
+    
 
     public double getValorFrete() {
         return valorFrete;
@@ -29,11 +39,11 @@ public class Pedido {
         this.valorFrete = valorFrete;
     }
     
-     public List<Produto> getProduto() {
+     public ArrayList<Produto> getProduto() {
         return produto;
     }
 
-    public void setProduto(List<Produto> produto) {
+    public void setProduto(ArrayList<Produto> produto) {
         this.produto = produto;
     }
 
