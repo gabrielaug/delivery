@@ -270,7 +270,7 @@ public class DAOPedido implements InterfacePedido{
         
         Connection con = Conexao.getInstance().getConnection();
         
-        String sql = "SELECT Cod_Pedido, Telefone, Valor_Total, Obs_Cliente, Dt_Pedido FROM Pedido WHERE Cod_Pedido = ?";
+        String sql = "SELECT Cod_Pedido, Telefone, Valor_Total, Dt_Pedido FROM Pedido WHERE Cod_Pedido = ?";
         
         PreparedStatement pstm;
         pstm = con.prepareStatement(sql);
