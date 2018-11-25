@@ -120,6 +120,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         menuReImprimirPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/delivery/util/imagens/re-imprimirPedido.png"))); // NOI18N
         menuReImprimirPedido.setText("Re-Imprimir Pedido");
+        menuReImprimirPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuReImprimirPedidoActionPerformed(evt);
+            }
+        });
         jMenu5.add(menuReImprimirPedido);
 
         menuCancelarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/delivery/util/imagens/cancelarPedido.png"))); // NOI18N
@@ -356,6 +361,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_jMenu3MouseClicked
+
+    private void menuReImprimirPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuReImprimirPedidoActionPerformed
+        
+        TelaReImprimirPedido reImp = new TelaReImprimirPedido();
+        desktop.add(reImp);
+        reImp.setPosicao();
+        reImp.setVisible(true);
+        
+        
+        
+    }//GEN-LAST:event_menuReImprimirPedidoActionPerformed
 
     /**
      * @param args the command line arguments
