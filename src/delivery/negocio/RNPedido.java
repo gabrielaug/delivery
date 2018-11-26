@@ -44,6 +44,7 @@ public class RNPedido implements InterfacePedido {
         validacaoPedido(pedido);
         retorno = dao.inserir(pedido);
         if(retorno > 0){
+           
           dao.inserirPedidoProduto(pedido);
         }
         

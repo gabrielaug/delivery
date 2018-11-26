@@ -78,7 +78,7 @@ public class DAOPedido implements InterfacePedido{
         
         String sql = "INSERT INTO Pedido_Produto (Cod_Pedido, Cod_Produto, Unidade, Obs_Produto) VALUES ";
         
-        ArrayList<Produto> listaProdutos = new ArrayList<>();
+        ArrayList<Produto> listaProdutos;
         
         listaProdutos = pedido.getProduto();
         
