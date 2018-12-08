@@ -21,6 +21,16 @@ public class Pedido {
     private Timestamp dtPedido;
     private double valorFrete;
     private String pgto;
+    private String pedStatus;
+
+    public String getPedStatus() {
+        return pedStatus;
+    }
+
+    public void setPedStatus(String pedStatus) {
+        this.pedStatus = pedStatus;
+    }
+    
 
     public String getPgto() {
         return pgto;

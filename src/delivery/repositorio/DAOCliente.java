@@ -13,12 +13,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -254,5 +250,41 @@ public class DAOCliente implements InterfaceCliente{
         }
         return null;
     }
+    
+    public int QtdPedidoCliente(Cliente cliente) throws DAOException, SQLException {
+     
+        int total = 0;
+        
+        Connection con = Conexao.getInstance().getConnection();
+        
+        String sql = "SELECT COUNT(P.Cod_Pedido) AS TOTAL FROM Pedido as P\n" +
+            "INNER JOIN Cliente AS C ON C.Telefone = P.Telefone WHERE P.Telefone = ?";
+        
+        PreparedStatement pstm;
+        pstm = con.prepareStatement(sql);
+        pstm.setString(1,cliente.getTelefone());
+        ResultSet rs = null;
+        
+        try{
+        rs = pstm.executeQuery();
+        
+        if(rs.next()){
+            
+            total = rs.getInt("TOTAL");
+
+            return total;
+        }
+        }
+        catch(SQLException ex){
+            
+        }
+        finally{
+            Conexao.closeConnection(con, pstm, rs);
+        }
+        return total;
+    }
+    
+    
+    
     
 }

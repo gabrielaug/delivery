@@ -218,7 +218,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu8.add(jMenuItem7);
 
         jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/delivery/util/imagens/PedidoPorCliente.png"))); // NOI18N
-        jMenuItem8.setText("Pedido por Cliente");
+        jMenuItem8.setText("Pedidos por Cliente");
         jMenu8.add(jMenuItem8);
 
         jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/delivery/util/imagens/RelatorioProdutos.png"))); // NOI18N

@@ -16,7 +16,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -87,7 +86,7 @@ public class DAOPedido implements InterfacePedido{
         
         if(listaProdutos.size() == 1){
 
-         sql +="(?,?,?,?)";
+         sql +=" (?,?,?,?)";
                 
             pstm = con.prepareStatement(sql);
         
@@ -111,12 +110,12 @@ public class DAOPedido implements InterfacePedido{
         else if(listaProdutos.size() > 1){
             
             int count = 1;
-            int c = 1;
+            int c = 0;
             
             for(Produto i : listaProdutos){
-                c++;
-                sql +="(?,?,?,?)";
                 
+                sql +="(?,?,?,?)";
+                c++;
                 if(c != listaProdutos.size()){
                     sql +=",";
                 }
@@ -140,7 +139,7 @@ public class DAOPedido implements InterfacePedido{
                 
             }
             
-            try{
+           try{
                 pstm.executeUpdate(); 
             }catch(SQLException ex){
                 
@@ -304,6 +303,47 @@ public class DAOPedido implements InterfacePedido{
         }
         return null;
         
+    }
+    
+    
+    public ArrayList<Pedido> HistoricoCliente(Pedido pedido) throws DAOException, SQLException {
+     
+        ArrayList<Pedido> retorno = new ArrayList();
+        
+        Connection con = Conexao.getInstance().getConnection();
+        
+        String sql =    "SELECT P.Cod_Pedido,P.Dt_Pedido,P.Valor_Frete,P.Valor_Total,P.Pgto FROM Pedido AS P\n" +
+                        " INNER JOIN Cliente AS C ON C.Telefone = P.Telefone \n" +
+                        "WHERE C.Telefone = ? AND P.Ped_Status = ? ORDER BY P.Dt_Pedido DESC";
+        
+        PreparedStatement pstm;
+        pstm = con.prepareStatement(sql);
+        pstm.setString(1,pedido.getCliente().getTelefone());
+        pstm.setString(2, pedido.getPedStatus());
+        ResultSet rs = null;
+        
+        try{
+        rs = pstm.executeQuery();
+        
+        while(rs.next()){
+            Pedido ped = new Pedido();
+            ped.setCodPedido(rs.getInt("Cod_Pedido"));
+            ped.setDtPedido(rs.getTimestamp("Dt_Pedido"));
+            ped.setValorFrete(rs.getDouble("Valor_Frete"));
+            ped.setValorTotal(rs.getDouble("Valor_Total"));
+            ped.setPgto(rs.getString("Pgto"));
+            
+            
+            retorno.add(ped);
+        }
+        }
+        catch(SQLException ex){
+            
+        }
+        finally{
+            Conexao.closeConnection(con, pstm, rs);
+        }
+        return retorno;
     }
     
    
